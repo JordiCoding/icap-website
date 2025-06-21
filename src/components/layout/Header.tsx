@@ -89,18 +89,12 @@ const Header: React.FC = () => {
               <button>
                 <img src="/icons/search.svg" alt="Search" className="w-6 h-6" />
               </button>
-              <div className="relative">
-                <NavLinkDropdown
-                  title={currentLanguage.toUpperCase()}
-                  isOpen={openDropdown === 'language'}
-                  onClick={() => handleDropdown('language')}
-                >
-                  <div className="absolute top-full mt-2 w-20 bg-white rounded-md shadow-lg py-1">
-                    <button onClick={() => { changeLanguage('en'); setOpenDropdown(null); }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">EN</button>
-                    <button onClick={() => { changeLanguage('ar'); setOpenDropdown(null); }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">AR</button>
-                  </div>
-                </NavLinkDropdown>
-              </div>
+              <button
+                onClick={toggleLanguage}
+                className="text-white hover:text-primary-300 transition-colors duration-200 font-medium"
+              >
+                {currentLanguage === 'en' ? 'AR' : 'EN'}
+              </button>
             </div>
 
             {/* Mobile Menu Button */}

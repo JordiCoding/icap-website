@@ -8,13 +8,18 @@ interface MobileNavProps {
   onClose: () => void;
 }
 
-const MobileNavLink = ({ to, children }: { to: string; children: React.ReactNode }) => (
-  <Link to={to} className="text-2xl text-white font-bold">
+const MobileNavLink = ({ to, children, onClick }: { to: string; children: React.ReactNode; onClick?: () => void }) => (
+  <Link to={to} className="text-2xl text-white font-bold" onClick={onClick}>
     {children}
   </Link>
 );
 
-const MobileNavDropdown = ({ title, children }: { title: string; children: React.ReactNode }) => {
+interface DropdownItem {
+  label: string;
+  to: string;
+}
+
+const MobileNavDropdown = ({ title, items, onClose }: { title: string; items: DropdownItem[]; onClose: () => void; }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
     <div className="w-full text-center">
@@ -27,7 +32,11 @@ const MobileNavDropdown = ({ title, children }: { title: string; children: React
       </button>
       {isDropdownOpen && (
         <div className="flex flex-col items-center gap-4 mt-4">
-          {children}
+          {items.map((item) => (
+            <MobileNavLink key={item.to} to={item.to} onClick={onClose}>
+              {item.label}
+            </MobileNavLink>
+          ))}
         </div>
       )}
     </div>
@@ -44,24 +53,28 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const brokerageItems: DropdownItem[] = [
+    { to: '#', label: t('footer.localBrokerage') },
+    { to: '#', label: t('footer.globalBrokerage') },
+    { to: '#', label: t('footer.marginLending') },
+  ];
+
+  const assetManagementItems: DropdownItem[] = [
+    { to: '#', label: t('footer.portfolioManagment') },
+    { to: '#', label: t('footer.mutualFunds') },
+  ];
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-icap-primary z-50 md:hidden p-8">
+    <div className="fixed inset-0 bg-[#1D1306] z-50 md:hidden p-8">
       <div className="flex flex-col items-center justify-center h-full gap-8">
-        <MobileNavDropdown title={t('navigation.brokerage')}>
-          <MobileNavLink to="#">{t('footer.localBrokerage')}</MobileNavLink>
-          <MobileNavLink to="#">{t('footer.globalBrokerage')}</MobileNavLink>
-          <MobileNavLink to="#">{t('footer.marginLending')}</MobileNavLink>
-        </MobileNavDropdown>
-        <MobileNavDropdown title={t('navigation.assetManagment')}>
-          <MobileNavLink to="#">{t('footer.portfolioManagment')}</MobileNavLink>
-          <MobileNavLink to="#">{t('footer.mutualFunds')}</MobileNavLink>
-        </MobileNavDropdown>
-        <MobileNavLink to="/investment-banking">{t('navigation.investmentBanking')}</MobileNavLink>
-        <MobileNavLink to="/real-estate">{t('navigation.realEstate')}</MobileNavLink>
-        <MobileNavLink to="/about">{t('navigation.about')}</MobileNavLink>
-        <MobileNavLink to="/newsroom">{t('navigation.newsroom')}</MobileNavLink>
+        <MobileNavDropdown title={t('navigation.brokerage')} items={brokerageItems} onClose={onClose} />
+        <MobileNavDropdown title={t('navigation.assetManagment')} items={assetManagementItems} onClose={onClose} />
+        <MobileNavLink to="/investment-banking" onClick={onClose}>{t('navigation.investmentBanking')}</MobileNavLink>
+        <MobileNavLink to="/real-estate" onClick={onClose}>{t('navigation.realEstate')}</MobileNavLink>
+        <MobileNavLink to="/about" onClick={onClose}>{t('navigation.about')}</MobileNavLink>
+        <MobileNavLink to="/newsroom" onClick={onClose}>{t('navigation.newsroom')}</MobileNavLink>
         <button onClick={toggleLanguage} className="text-2xl text-white font-bold">
           {currentLanguage === 'en' ? 'AR' : 'EN'}
         </button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 interface TextBlockProps {
   title: React.ReactNode;
@@ -19,11 +20,11 @@ const TextBlock: React.FC<TextBlockProps> = ({
   const subtitleColor = variant === 'light' ? 'text-gray-300' : 'text-gray-600';
 
   return (
-    <div className={`flex flex-col gap-6 ${className}`}>
-      <h2 className={`text-4xl lg:text-5xl font-bold ${titleColor}`}>
+    <div className={clsx('flex flex-col gap-6', className)}>
+      <h2 className={clsx('text-4xl lg:text-5xl font-bold', titleColor)}>
         {title}
       </h2>
-      <p className={`text-lg ${subtitleColor} max-w-xl`}>
+      <p className={clsx('text-lg max-w-xl', subtitleColor)}>
         {subtitle}
       </p>
       {actions && <div className="mt-4">{actions}</div>}

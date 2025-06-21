@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 type ButtonProps<C extends React.ElementType> = {
   as?: C;
@@ -25,7 +26,7 @@ const Button = <C extends React.ElementType = 'button'>({
 
   return (
     <Component
-      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+      className={clsx(baseStyles, variantStyles[variant], className)}
       {...props}
     >
       {children}

@@ -1,0 +1,73 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found",
+    "backToHome": "Back to Home"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact",
+    "language": "Language",
+    "brokerage": "Brokerage",
+    "assetManagment": "Asset Managment",
+    "investmentBanking": "Investment Banking",
+    "realEstate": "Real Estate",
+    "newsroom": "Newsroom"
+  },
+  "header": {
+    "logo": "ICAP Website",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "footer": {
+    "services": "Services",
+    "localBrokerage": "Local Brokerage",
+    "globalBrokerage": "Global Brokerage",
+    "marginLending": "Margin Lending",
+    "portfolioManagment": "Portfolio Managment",
+    "mutualFunds": "Mutual Funds",
+    "investmentBanking": "Investment Banking",
+    "realEstate": "Real Estate",
+    "company": "Company",
+    "aboutUs": "About us",
+    "media": "Media",
+    "careers": "Careers",
+    "quickLinks": "Quick Links",
+    "formsAndApplications": "Forms & applications",
+    "investorsAwareness": "Investors awareness",
+    "informationSecurity": "Information security",
+    "valueAddedTax": "Value added tax",
+    "registerComplaint": "Register a complaint",
+    "getInTouch": "Get in touch",
+    "contactUs": "Contact us",
+    "phone1": "+966 011-254-7605",
+    "phone2": "+966 011-254-7605",
+    "email": "webecare@icap.com.sa",
+    "address": "P.O. Box 6888, Riyadh 11452",
+    "logoDescription": "Al-Istithmar Capital, is a Saudi company licensed by the Saudi Capital Market Authority with license No. (37-11156)",
+    "termsOfService": "Terms of service",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy policy",
+    "copyright": "© Copyright 2025. All Right Reserved."
+  },
+  "home": {
+    "title": "Investing Made Smarter",
+    "subtitle": "Experience seamless and secure investing with Alistithmar Capital",
+    "cta": "Get Started",
+    "login": "Log in",
+    "signup": "Sign Up"
+  },
+  "portfolio": {
+    "preTitle": "Your Portfolio",
+    "title": "Always with You",
+    "description": "Subscribe to funds, trade local and international markets, and track your investments - right from your phone. Download Now!"
+  },
+  "marginLending": {
+    "title": "Expand Your Investment<1/>Potential with <0>Margin Lending</0>",
+    "subtitle": "Enhance your trading potential with secure, flexible, and Sharia-compliant margin financing from Alistithmar Capital.",
+    "button": "Learn More"
+  }
+} 

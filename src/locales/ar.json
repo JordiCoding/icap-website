@@ -1,0 +1,73 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "notFound": "الصفحة غير موجودة",
+    "backToHome": "العودة إلى الصفحة الرئيسية"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "services": "الخدمات",
+    "contact": "اتصل بنا",
+    "language": "اللغة",
+    "brokerage": "الوساطة",
+    "assetManagment": "إدارة الأصول",
+    "investmentBanking": "الخدمات المصرفية الاستثمارية",
+    "realEstate": "العقارات",
+    "newsroom": "المركز الإعلامي"
+  },
+  "header": {
+    "logo": "موقع ICAP",
+    "menu": "القائمة",
+    "close": "إغلاق"
+  },
+  "footer": {
+    "services": "الخدمات",
+    "localBrokerage": "الوساطة المحلية",
+    "globalBrokerage": "الوساطة العالمية",
+    "marginLending": "الإقراض بالهامش",
+    "portfolioManagment": "إدارة المحافظ",
+    "mutualFunds": "الصناديق المشتركة",
+    "investmentBanking": "الخدمات المصرفية الاستثمارية",
+    "realEstate": "العقارات",
+    "company": "الشركة",
+    "aboutUs": "من نحن",
+    "media": "الإعلام",
+    "careers": "الوظائف",
+    "quickLinks": "روابط سريعة",
+    "formsAndApplications": "النماذج والطلبات",
+    "investorsAwareness": "توعية المستثمرين",
+    "informationSecurity": "أمن المعلومات",
+    "valueAddedTax": "ضريبة القيمة المضافة",
+    "registerComplaint": "تسجيل شكوى",
+    "getInTouch": "تواصل معنا",
+    "contactUs": "اتصل بنا",
+    "phone1": "+966 011-254-7605",
+    "phone2": "+966 011-254-7605",
+    "email": "webecare@icap.com.sa",
+    "address": "ص.ب 6888, الرياض 11452",
+    "logoDescription": "الاستثمار كابيتال، هي شركة سعودية مرخصة من هيئة السوق المالية السعودية بترخيص رقم (37-11156)",
+    "termsOfService": "شروط الخدمة",
+    "legal": "قانوني",
+    "privacyPolicy": "سياسة الخصوصية",
+    "copyright": "© حقوق النشر 2025. جميع الحقوق محفوظة."
+  },
+  "home": {
+    "title": "استثمار أكثر ذكاءً",
+    "subtitle": "تجربة استثمار سلسة وآمنة مع الاستثمار كابيتال",
+    "cta": "ابدأ الآن",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب"
+  },
+  "portfolio": {
+    "preTitle": "محفظتك الاستثمارية",
+    "title": "دائماً معك",
+    "description": "اشترك في الصناديق، وتداول في الأسواق المحلية والعالمية، وتتبع استثماراتك - مباشرة من هاتفك. حمل الآن!"
+  },
+  "marginLending": {
+    "title": "عزّز إمكاناتك الاستثمارية<1/>مع <0>الإقراض بالهامش</0>",
+    "subtitle": "عزز إمكاناتك التداولية بتمويل مرابحة آمن ومرن ومتوافق مع أحكام الشريعة الإسلامية من الاستثمار كابيتال.",
+    "button": "اعرف المزيد"
+  }
+} 

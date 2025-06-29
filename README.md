@@ -86,3 +86,86 @@ This is our current focus.
 ---
 
 **Ready for your Figma designs!** 🎨
+
+# Mutual Fund Calculator
+
+## Project Scope
+
+This project is a modern, accessible, and responsive web calculator for projecting the future value of mutual fund investments based on historical NAV (Net Asset Value) and dividend data. It is designed for both internal demo and future production use, supporting multiple funds and extensible to live data sources.
+
+### Core Features (Phase 1)
+- Input: Initial deposit (default 50,000 SAR)
+- Timeframe selection: 1Y, 3Y, 5Y, 10Y
+- Output:
+  - Projected fund value (using historical CAGR)
+  - Average annual return (CAGR)
+  - Dividends earned (if applicable)
+- Line chart showing fund growth over time
+- Responsive, accessible UI matching Figma design
+
+### Future Phases
+- Multi-fund support (dropdown selector)
+- Dynamic data source (API/backend, daily updates)
+- Recurring investments, export, user accounts, and more
+
+## Data Requirements
+
+### 1. NAV Data (Net Asset Value)
+- Daily or periodic NAVs for each fund
+- JSON array, one object per date
+
+```
+[
+  { "date": "2015-01-01", "nav": 10.00 },
+  { "date": "2015-01-02", "nav": 10.01 },
+  ...
+]
+```
+
+### 2. Dividend Data (Optional, per fund)
+- Quarterly (or periodic) dividend payouts
+- JSON array, one object per payout
+
+```
+[
+  { "date": "2015-03-31", "amount": 100 },
+  { "date": "2015-06-30", "amount": 120 },
+  ...
+]
+```
+
+### 3. Multi-Fund Support (Phase 2+)
+- Store as an object keyed by fund name or code:
+
+```
+{
+  "FundA": {
+    "navs": [ ... ],
+    "dividends": [ ... ]
+  },
+  "FundB": {
+    "navs": [ ... ],
+    "dividends": [ ... ]
+  }
+}
+```
+
+## How to Upload Data
+- Place your JSON file(s) in `/src/data/`.
+- For Phase 1, use `navs.json` and (optionally) `dividends.json` for a single fund.
+- For multi-fund, use `funds.json` as shown above.
+
+## Calculation Logic
+- CAGR is calculated for each timeframe using actual NAVs.
+- Dividends are summed for the selected period.
+- Lump sum investment only (no recurring for now).
+
+## Accessibility & Best Practices
+- Fully responsive (mobile/tablet/desktop)
+- Accessible (semantic HTML, ARIA labels, keyboard navigation)
+- TypeScript for type safety
+- Calculation logic separated in `/utils`
+
+---
+
+**Please upload your JSON data in the format above. If you have questions or need help converting from Excel, let us know!**

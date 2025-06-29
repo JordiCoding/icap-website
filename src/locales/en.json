@@ -69,5 +69,12 @@
     "title": "Expand Your Investment<1/>Potential with <0>Margin Lending</0>",
     "subtitle": "Enhance your trading potential with secure, flexible, and Sharia-compliant margin financing from Alistithmar Capital.",
     "button": "Learn More"
+  },
+  "market": {
+    "live": "Live",
+    "delayed": "Delayed",
+    "mock": "Mock",
+    "lastUpdated": "Last Updated",
+    "updating": "Updating market data"
   }
 } 

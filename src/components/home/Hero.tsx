@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
+// import { useCmsData } from '../../hooks/useApi'; // Uncomment when ready
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -20,6 +21,13 @@ const itemVariants = {
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
+  
+  // Example of how CMS data would be integrated
+  // const { data: cmsData, loading: cmsLoading, error: cmsError } = useCmsData();
+  
+  // Use CMS data if available, fallback to translation keys
+  const title = /* cmsData?.hero?.title || */ t('home.title');
+  const subtitle = /* cmsData?.hero?.subtitle || */ t('home.subtitle');
 
   return (
     <div 
@@ -37,13 +45,13 @@ const Hero: React.FC = () => {
           className="text-5xl md:text-7xl font-bold mb-4"
           variants={itemVariants}
         >
-          {t('home.title')}
+          {title}
         </motion.h1>
         <motion.p
           className="text-lg md:text-xl mb-8"
           variants={itemVariants}
         >
-          {t('home.subtitle')}
+          {subtitle}
         </motion.p>
         <motion.div
           className="flex justify-center gap-4"

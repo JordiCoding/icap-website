@@ -86,10 +86,8 @@ function mergeMarkets(base: MarketData[], updates: MarketData[]): MarketData[] {
   });
 }
 
-// API base URL - will be different in production vs development
-const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://your-vercel-domain.vercel.app/api' 
-  : '/api';
+// API base URL - will be the same for local dev (with proxy) and production
+const API_BASE_URL = '/api';
 
 export const useMarketStore = create<MarketStore>()(
   devtools(

@@ -7,10 +7,10 @@ const initialMarkets: MarketData[] = [
   {
     symbol: 'TASI',
     name: 'Saudi Stock Exchange Index',
-    price: 0,
-    change: 0,
-    changePercent: 0,
-    lastUpdated: '',
+    price: 11567.89,
+    change: 234.56,
+    changePercent: 2.07,
+    lastUpdated: new Date().toISOString(),
     isPositive: true,
     dataSource: 'mock',
     marketType: 'index',
@@ -19,11 +19,11 @@ const initialMarkets: MarketData[] = [
   {
     symbol: 'MT30',
     name: 'Saudi Blue-Chip Index',
-    price: 0,
-    change: 0,
-    changePercent: 0,
-    lastUpdated: '',
-    isPositive: true,
+    price: 2345.67,
+    change: -45.23,
+    changePercent: -1.89,
+    lastUpdated: new Date().toISOString(),
+    isPositive: false,
     dataSource: 'mock',
     marketType: 'index',
     region: 'saudi',
@@ -31,10 +31,10 @@ const initialMarkets: MarketData[] = [
   {
     symbol: 'SP500',
     name: 'S&P 500',
-    price: 0,
-    change: 0,
-    changePercent: 0,
-    lastUpdated: '',
+    price: 4592.34,
+    change: 45.67,
+    changePercent: 1.00,
+    lastUpdated: new Date().toISOString(),
     isPositive: true,
     dataSource: 'mock',
     marketType: 'index',
@@ -43,11 +43,11 @@ const initialMarkets: MarketData[] = [
   {
     symbol: 'NASDAQ',
     name: 'NASDAQ Composite',
-    price: 0,
-    change: 0,
-    changePercent: 0,
-    lastUpdated: '',
-    isPositive: true,
+    price: 14321.56,
+    change: -123.45,
+    changePercent: -0.85,
+    lastUpdated: new Date().toISOString(),
+    isPositive: false,
     dataSource: 'mock',
     marketType: 'index',
     region: 'us',
@@ -55,10 +55,10 @@ const initialMarkets: MarketData[] = [
   {
     symbol: 'BTC',
     name: 'Bitcoin',
-    price: 0,
-    change: 0,
-    changePercent: 0,
-    lastUpdated: '',
+    price: 43250.67,
+    change: 1250.34,
+    changePercent: 2.98,
+    lastUpdated: new Date().toISOString(),
     isPositive: true,
     dataSource: 'mock',
     marketType: 'crypto',
@@ -67,11 +67,11 @@ const initialMarkets: MarketData[] = [
   {
     symbol: 'ETH',
     name: 'Ethereum',
-    price: 0,
-    change: 0,
-    changePercent: 0,
-    lastUpdated: '',
-    isPositive: true,
+    price: 2650.89,
+    change: -45.67,
+    changePercent: -1.69,
+    lastUpdated: new Date().toISOString(),
+    isPositive: false,
     dataSource: 'mock',
     marketType: 'crypto',
     region: 'global',
@@ -86,18 +86,10 @@ function mergeMarkets(base: MarketData[], updates: MarketData[]): MarketData[] {
   });
 }
 
-const ALPHA_VANTAGE_API_KEY = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
-const ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query';
-
-async function fetchAlphaVantageQuote(symbol: string) {
-  const url = `${ALPHA_VANTAGE_BASE_URL}?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${ALPHA_VANTAGE_API_KEY}`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Alpha Vantage API error');
-  const data = await response.json();
-  // Defensive: Return undefined if 'Global Quote' is missing or empty
-  if (!data['Global Quote'] || Object.keys(data['Global Quote']).length === 0) return undefined;
-  return data['Global Quote'];
-}
+// API base URL - will be different in production vs development
+const API_BASE_URL = import.meta.env.PROD 
+  ? 'https://your-vercel-domain.vercel.app/api' 
+  : '/api';
 
 export const useMarketStore = create<MarketStore>()(
   devtools(
@@ -112,139 +104,88 @@ export const useMarketStore = create<MarketStore>()(
       setError: (error) => set({ error }),
       setLastUpdated: (timestamp) => set({ lastUpdated: timestamp }),
 
-      fetchCryptoData: async () => {
+      fetchSaudiData: async () => {
         set({ isLoading: true, error: null });
         try {
-          const response = await fetch(
-            'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true'
-          );
-          if (!response.ok) throw new Error('Failed to fetch crypto data');
-          const data = await response.json();
-          const cryptoMarkets: MarketData[] = [
+          // For now, using mock data for Saudi markets
+          // TODO: Replace with real Saudi market API when available
+          const saudiMarkets: MarketData[] = [
             {
-              symbol: 'BTC',
-              name: 'Bitcoin',
-              price: data.bitcoin.usd,
-              change: data.bitcoin.usd_24h_change,
-              changePercent: data.bitcoin.usd_24h_change,
-              lastUpdated: new Date(data.bitcoin.last_updated_at * 1000).toISOString(),
-              isPositive: data.bitcoin.usd_24h_change > 0,
-              dataSource: 'live',
-              marketType: 'crypto',
-              region: 'global',
+              symbol: 'TASI',
+              name: 'Saudi Stock Exchange Index',
+              price: 11567.89 + (Math.random() - 0.5) * 100, // Add some variation
+              change: 234.56 + (Math.random() - 0.5) * 50,
+              changePercent: 2.07 + (Math.random() - 0.5) * 2,
+              lastUpdated: new Date().toISOString(),
+              isPositive: Math.random() > 0.5,
+              dataSource: 'mock',
+              marketType: 'index',
+              region: 'saudi',
             },
             {
-              symbol: 'ETH',
-              name: 'Ethereum',
-              price: data.ethereum.usd,
-              change: data.ethereum.usd_24h_change,
-              changePercent: data.ethereum.usd_24h_change,
-              lastUpdated: new Date(data.ethereum.last_updated_at * 1000).toISOString(),
-              isPositive: data.ethereum.usd_24h_change > 0,
-              dataSource: 'live',
-              marketType: 'crypto',
-              region: 'global',
+              symbol: 'MT30',
+              name: 'Saudi Blue-Chip Index',
+              price: 2345.67 + (Math.random() - 0.5) * 50,
+              change: -45.23 + (Math.random() - 0.5) * 30,
+              changePercent: -1.89 + (Math.random() - 0.5) * 1.5,
+              lastUpdated: new Date().toISOString(),
+              isPositive: Math.random() > 0.5,
+              dataSource: 'mock',
+              marketType: 'index',
+              region: 'saudi',
             },
           ];
           set({
-            markets: mergeMarkets(get().markets, cryptoMarkets),
+            markets: mergeMarkets(get().markets, saudiMarkets),
             isLoading: false,
             lastUpdated: new Date().toISOString(),
           });
         } catch (error) {
+          console.error('Error fetching Saudi data:', error);
           set({
-            markets: mergeMarkets(get().markets, []), // fallback to previous/placeholder
-            error: error instanceof Error ? error.message : 'Failed to fetch crypto data',
+            error: error instanceof Error ? error.message : 'Failed to fetch Saudi data',
             isLoading: false,
           });
         }
       },
 
+      fetchCryptoData: async () => {
+        // This function is now handled by the cached API
+        // Keeping for backward compatibility but it will be called via fetchAllData
+        console.log('fetchCryptoData called - use fetchAllData instead');
+      },
+
       fetchStockData: async () => {
-        set({ isLoading: true, error: null });
-        try {
-          const [sp500Raw, nasdaqRaw] = await Promise.all([
-            fetchAlphaVantageQuote('SPY'),
-            fetchAlphaVantageQuote('QQQ'),
-          ]);
-          // If either is missing, fallback to mock data
-          if (!sp500Raw || !sp500Raw['05. price'] || !nasdaqRaw || !nasdaqRaw['05. price']) {
-            throw new Error('Alpha Vantage returned incomplete data');
-          }
-          const sp500: MarketData = {
-            symbol: 'SP500',
-            name: 'S&P 500',
-            price: parseFloat(sp500Raw['05. price'] || '0'),
-            change: parseFloat(sp500Raw['09. change'] || '0'),
-            changePercent: parseFloat((sp500Raw['10. change percent'] || '0').replace('%', '')),
-            lastUpdated: sp500Raw['07. latest trading day'] || new Date().toISOString(),
-            isPositive: parseFloat(sp500Raw['09. change'] || '0') >= 0,
-            dataSource: 'live',
-            marketType: 'index',
-            region: 'us',
-          };
-          const nasdaq: MarketData = {
-            symbol: 'NASDAQ',
-            name: 'NASDAQ Composite',
-            price: parseFloat(nasdaqRaw['05. price'] || '0'),
-            change: parseFloat(nasdaqRaw['09. change'] || '0'),
-            changePercent: parseFloat((nasdaqRaw['10. change percent'] || '0').replace('%', '')),
-            lastUpdated: nasdaqRaw['07. latest trading day'] || new Date().toISOString(),
-            isPositive: parseFloat(nasdaqRaw['09. change'] || '0') >= 0,
-            dataSource: 'live',
-            marketType: 'index',
-            region: 'us',
-          };
-          set({
-            markets: mergeMarkets(get().markets, [sp500, nasdaq]),
-            isLoading: false,
-            lastUpdated: new Date().toISOString(),
-          });
-        } catch (error) {
-          // Fallback to mock data if API fails or is incomplete
-          const mockUSData: MarketData[] = [
-            {
-              symbol: 'SP500',
-              name: 'S&P 500',
-              price: 4592.34,
-              change: 45.67,
-              changePercent: 1.00,
-              lastUpdated: new Date().toISOString(),
-              isPositive: true,
-              dataSource: 'mock',
-              marketType: 'index',
-              region: 'us',
-            },
-            {
-              symbol: 'NASDAQ',
-              name: 'NASDAQ Composite',
-              price: 14321.56,
-              change: -123.45,
-              changePercent: -0.85,
-              lastUpdated: new Date().toISOString(),
-              isPositive: false,
-              dataSource: 'mock',
-              marketType: 'index',
-              region: 'us',
-            },
-          ];
-          set({
-            markets: mergeMarkets(get().markets, mockUSData),
-            error: error instanceof Error ? error.message : 'Failed to fetch stock data',
-            isLoading: false,
-          });
-        }
+        // This function is now handled by the cached API
+        // Keeping for backward compatibility but it will be called via fetchAllData
+        console.log('fetchStockData called - use fetchAllData instead');
       },
 
       fetchAllData: async () => {
         set({ isLoading: true, error: null });
         try {
-          await Promise.all([
-            get().fetchCryptoData(),
-            get().fetchStockData(),
-          ]);
-          set({ isLoading: false });
+          const response = await fetch(`${API_BASE_URL}/market-data`);
+          
+          if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+          }
+          
+          const result = await response.json();
+          
+          if (result.error) {
+            throw new Error(result.error);
+          }
+          
+          // Update markets with the cached data
+          set({
+            markets: result.data,
+            isLoading: false,
+            lastUpdated: result.timestamp || new Date().toISOString(),
+          });
+          
+          console.log(`Market data fetched successfully (cached: ${result.cached})`);
         } catch (error) {
+          console.error('Error fetching market data from API:', error);
           set({
             error: error instanceof Error ? error.message : 'Failed to fetch market data',
             isLoading: false,

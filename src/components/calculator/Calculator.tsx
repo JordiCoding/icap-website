@@ -56,7 +56,7 @@ const Calculator: React.FC = () => {
           options={TIMEFRAME_OPTIONS}
         />
         <ResultsPanel value={projected} cagr={cagr} dividends={dividends} period={periodLabel} showDividends={false} />
-        <GrowthChart data={chartData} period={periodLabel} />
+        <GrowthChart data={chartData} />
       </div>
     </section>
   );

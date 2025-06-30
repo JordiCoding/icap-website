@@ -33,6 +33,7 @@ export interface MarketStore {
   setLastUpdated: (timestamp: string) => void;
   
   // Async actions
+  fetchSaudiData: () => Promise<void>;
   fetchCryptoData: () => Promise<void>;
   fetchStockData: () => Promise<void>;
   fetchAllData: () => Promise<void>;

@@ -3,10 +3,9 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 
 interface GrowthChartProps {
   data: { date: string; nav: number }[];
-  period: string;
 }
 
-const GrowthChart: React.FC<GrowthChartProps> = ({ data, period }) => {
+const GrowthChart: React.FC<GrowthChartProps> = ({ data }) => {
   return (
     <div className="bg-white rounded shadow p-4 w-full h-64">
       <ResponsiveContainer width="100%" height="100%">

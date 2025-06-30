@@ -1,12 +1,12 @@
 import { kv } from '@vercel/kv';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { fetchAlphaVantageData, fetchCoinGeckoData, fetchSaudiData } from '../../src/utils/apiClient';
+import { fetchAlphaVantageData, fetchCoinGeckoData, fetchSaudiData } from '../lib/apiClient';
 import type { MarketData } from '../../src/types/market';
 
 const CACHE_KEY = 'market-data';
 const CACHE_TTL_SECONDS = 600; // 10 minutes
 
-const handler = async (req: VercelRequest, res: VercelResponse) => {
+const handler = async (_req: VercelRequest, res: VercelResponse) => {
   try {
     // Try to get data from cache
     const cachedData = await kv.get<MarketData[]>(CACHE_KEY);

@@ -1,6 +1,6 @@
-import type { MarketData } from '../types/market';
+import type { MarketData } from '../../src/types/market';
 
-const ALPHA_VANTAGE_API_KEY = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
+const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY;
 
 async function fetchAlphaVantageQuote(symbol: string) {
   try {

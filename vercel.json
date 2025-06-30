@@ -18,8 +18,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "ALPHA_VANTAGE_API_KEY": "@alpha_vantage_api_key"
-  }
+  ]
 } 

@@ -4,10 +4,11 @@ import { motion } from 'framer-motion';
 import { useMarketStore } from '../../stores/useMarketStore';
 import MarketCard from './MarketCard';
 import TextBlock from '../common/TextBlock';
+import { MarketData } from '../../types/market';
 
 const MarketDataSection: React.FC = () => {
   const { t } = useTranslation();
-  const { markets, isLoading, error, lastUpdated, fetchAllData } = useMarketStore();
+  const { marketData, isLoading, error, fetchAllData } = useMarketStore();
 
   // Fetch data on component mount
   useEffect(() => {
@@ -76,7 +77,7 @@ const MarketDataSection: React.FC = () => {
           viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {markets.map((market) => (
+          {marketData.map((market: MarketData) => (
             <motion.div key={market.symbol} variants={itemVariants}>
               <MarketCard
                 data={market}
@@ -87,8 +88,8 @@ const MarketDataSection: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Last Updated Info */}
-        {lastUpdated && !isLoading && (
+        {/* Last Updated Info - This can be re-enabled if a global timestamp is added back to the store */}
+        {/* {lastUpdated && !isLoading && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -98,7 +99,7 @@ const MarketDataSection: React.FC = () => {
               {t('market.lastUpdated')}: {new Date(lastUpdated).toLocaleString()}
             </p>
           </motion.div>
-        )}
+        )} */}
 
         {/* Loading Indicator */}
         {isLoading && (

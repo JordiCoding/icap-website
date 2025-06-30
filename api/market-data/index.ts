@@ -1,7 +1,7 @@
 import { kv } from '@vercel/kv';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { fetchAlphaVantageData, fetchCoinGeckoData, fetchSaudiData } from '../lib/apiClient';
-import type { MarketData } from '../../src/types/market';
+import { fetchAlphaVantageData, fetchCoinGeckoData, fetchSaudiData } from '../lib/apiClient.js';
+import type { MarketData } from '../lib/market.js';
 
 const CACHE_KEY = 'market-data';
 const CACHE_TTL_SECONDS = 600; // 10 minutes

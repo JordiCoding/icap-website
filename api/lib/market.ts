@@ -1,3 +1,4 @@
+// api/lib/market.ts
 // Market data types for the ICAP website
 
 export interface MarketData {

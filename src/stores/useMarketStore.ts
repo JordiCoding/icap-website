@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { MarketData } from '../types/market';
+import type { MarketData } from '../../api/lib/market';
 
 interface MarketState {
   marketData: MarketData[];

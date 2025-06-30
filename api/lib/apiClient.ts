@@ -1,4 +1,4 @@
-import type { MarketData } from '../../src/types/market';
+import type { MarketData } from './market.js';
 
 const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY;
 

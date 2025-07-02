@@ -1,18 +1,16 @@
 import React from 'react';
 import Hero from '../components/home/Hero';
-import Calculator from '../components/calculator/Calculator';
 import MarginLendingSection from '../components/home/MarginLendingSection';
 import PortfolioSection from '../components/home/PortfolioSection';
-import MarketDataSection from '../components/market-data/MarketDataSection';
+import MutualFundsSection from '../components/home/MutualFundsSection';
 
 const Home: React.FC = () => {
   return (
     <>
       <Hero />
-      <Calculator />
       <PortfolioSection />
+      <MutualFundsSection />
       <MarginLendingSection />
-      <MarketDataSection />
       {/* The rest of the landing page sections will go here */}
     </>
   );

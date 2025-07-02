@@ -3,7 +3,8 @@
     "loading": "Loading...",
     "error": "An error occurred",
     "notFound": "Page not found",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "shariaCompliant": "Sharia Compliant"
   },
   "navigation": {
     "home": "Home",
@@ -76,5 +77,27 @@
     "mock": "Mock",
     "lastUpdated": "Last Updated",
     "updating": "Updating market data"
+  },
+  "funds": {
+    "Diversified Fund": "Diversified Fund",
+    "Diversified Fund.description": "A diversified mix of Sharia-compliant Sukuk, fixed income, trade finance, money market instruments, and similar funds",
+    "MENA Equity Fund": "MENA Equity Fund",
+    "MENA Equity Fund.description": "A diversified portfolio of listed equities, IPOs, REITs, ETFs, short-term instruments, and trade finance products",
+    "Freestyle Equity Fund": "Freestyle Equity Fund",
+    "Freestyle Equity Fund.description": "A balanced mix of Saudi equities, public offerings, short-term Islamic instruments, trade finance, and similar funds"
+  },
+  "risk": {
+    "low": "Low Risk",
+    "medium": "Medium Risk",
+    "high": "High Risk"
+  },
+  "mutualFunds": {
+    "riskLevel": "Risk Level",
+    "risk": {
+      "low": "Low Risk",
+      "medium": "Medium Risk",
+      "high": "High Risk"
+    },
+    "shariaCompliant": "Sharia Compliant"
   }
 } 

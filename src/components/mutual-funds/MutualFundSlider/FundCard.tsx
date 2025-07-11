@@ -45,7 +45,11 @@ export function FundCard({
     >
       {/* Icon */}
       <div className="mb-6">
-        <img src={icon} alt="" className="w-12 h-12" />
+        {icon?.url ? (
+          <img src={icon.url} alt="" className="w-12 h-12" />
+        ) : (
+          <div className="w-12 h-12 bg-gray-200 rounded-lg" /> // Placeholder
+        )}
       </div>
 
       {/* Title and Description */}

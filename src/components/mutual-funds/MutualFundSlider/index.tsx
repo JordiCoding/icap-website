@@ -1,47 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { FundCard } from './FundCard';
-import type { FundCardProps } from './types';
-
-const SAMPLE_FUNDS: FundCardProps[] = [
-  {
-    id: '1',
-    title: 'ICAP Conservative Fund',
-    description: 'A low-risk fund focused on capital preservation through investments in high-quality fixed income securities and money market instruments.',
-    riskLevel: 'low',
-    isShariaCompliant: true,
-    icon: '/icons/cube.svg'
-  },
-  {
-    id: '2',
-    title: 'ICAP Balanced Fund',
-    description: 'A medium-risk fund that seeks to achieve both capital growth and income through a diversified portfolio of stocks and bonds.',
-    riskLevel: 'medium',
-    isShariaCompliant: false,
-    icon: '/icons/pyramid.svg'
-  },
-  {
-    id: '3',
-    title: 'ICAP Growth Fund',
-    description: 'A high-risk fund aimed at maximizing capital appreciation through investments in growth stocks and other high-potential securities.',
-    riskLevel: 'high',
-    isShariaCompliant: true,
-    icon: '/icons/hexagon.svg'
-  },
-  {
-    id: '4',
-    title: 'ICAP Islamic Fund',
-    description: 'A Sharia-compliant fund that invests in a diversified portfolio of Islamic securities and Sukuk instruments.',
-    riskLevel: 'medium',
-    isShariaCompliant: true,
-    icon: '/icons/pyramid.svg'
-  }
-];
+import { useFundSlider } from '../../../hooks/useFundSlider';
 
 export function MutualFundSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const { data, isLoading, error } = useFundSlider();
+  const [shouldShowNavigation, setShouldShowNavigation] = useState(true);
+  const [maxSlide, setMaxSlide] = useState(0);
+
+  // Calculate slides per view based on screen width
+  const getSlidesPerView = () => {
+    if (window.innerWidth < 768) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
+
+  // Update navigation visibility and max slide based on screen size and number of funds
+  useEffect(() => {
+    const updateSliderSettings = () => {
+      if (!data?.funds) return;
+      
+      const slidesPerView = getSlidesPerView();
+      const totalFunds = data.funds.length;
+      
+      // Show navigation based on number of funds vs visible slides
+      setShouldShowNavigation(totalFunds > slidesPerView);
+      
+      // Calculate max slide index based on total funds and slides per view
+      setMaxSlide(Math.max(0, totalFunds - slidesPerView));
+    };
+
+    updateSliderSettings();
+    window.addEventListener('resize', updateSliderSettings);
+    
+    return () => {
+      window.removeEventListener('resize', updateSliderSettings);
+    };
+  }, [data?.funds]);
 
   const [sliderRef, instanceRef] = useKeenSlider({
     mode: "snap",
@@ -73,11 +71,37 @@ export function MutualFundSlider() {
     },
   });
 
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="max-w-[1062px] mx-auto px-6 py-12">
+        <div className="animate-pulse">
+          <div className="h-[454px] bg-gray-200 rounded-[20px]"></div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error || !data) {
+    return (
+      <div className="max-w-[1062px] mx-auto px-6 py-12 text-center">
+        <p className="text-red-500">Failed to load mutual funds.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-[1062px] mx-auto px-6">
+      {/* Section Title and Subtitle */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-semibold mb-4">{data.title}</h2>
+        <p className="text-gray-600">{data.subtitle}</p>
+      </div>
+
       <div className="py-[12px]">
         <div ref={sliderRef} className="keen-slider">
-          {SAMPLE_FUNDS.map((fund) => (
+          {data.funds.map((fund) => (
             <div 
               key={fund.id} 
               className="keen-slider__slide"
@@ -95,10 +119,10 @@ export function MutualFundSlider() {
           ))}
         </div>
 
-        {loaded && instanceRef.current && (
+        {loaded && instanceRef.current && shouldShowNavigation && (
           <div className="flex justify-between items-center mt-12">
             <div className="flex gap-2">
-              {[...Array(SAMPLE_FUNDS.length)].map((_, idx) => (
+              {[...Array(maxSlide + 1)].map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => instanceRef.current?.moveToIdx(idx)}
@@ -139,7 +163,7 @@ export function MutualFundSlider() {
               </button>
               <button
                 onClick={() => instanceRef.current?.next()}
-                disabled={currentSlide === SAMPLE_FUNDS.length - 1}
+                disabled={currentSlide >= maxSlide}
                 className={`
                   w-12 h-12 rounded-full flex items-center justify-center
                   bg-[#C87D55] text-white

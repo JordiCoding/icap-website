@@ -127,5 +127,13 @@
     "subtitle": "your future is one tap away",
     "description": "Join a growing community of investors moving forward with ICAP.",
     "scanMe": "Scan Me"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "newsroom": "Newsroom",
+    "article": "Article"
+  },
+  "news": {
+    "recommendedArticles": "Recommended Articles"
   }
 } 

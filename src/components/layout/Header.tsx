@@ -20,7 +20,12 @@ const NavLinkDropdown = ({ title, children, isOpen, onClick }: { title: string; 
   </div>
 );
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  background?: string;
+  position?: 'absolute' | 'relative';
+}
+
+const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) => {
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -45,7 +50,10 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="absolute top-0 left-0 w-full z-10 py-4">
+      <header 
+        className={`${position} top-0 left-0 w-full z-10 py-4`}
+        style={{ backgroundColor: background }}
+      >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}

@@ -168,4 +168,147 @@ This project is a modern, accessible, and responsive web calculator for projecti
 
 ---
 
+## 🔧 Troubleshooting Common Issues
+
+### **1. Arabic Translation Causing White Screen**
+
+**Problem**: When switching to Arabic (AR), the screen goes white and the application crashes.
+
+**Root Cause**: Usually caused by one of these issues:
+- NewsroomSection component has null `featuredImage` references
+- Race conditions in `useNewsData` hook during language changes
+- Missing null-safety checks in data transformation
+
+**Solution**:
+```typescript
+// In NewsroomSection.tsx - Add null-safety to image handling
+const newsArticles: NewsCardProps[] = articles.map(article => ({
+  id: article.id,
+  slug: article.slug,
+  title: article.title,
+  description: article.excerpt,
+  image: article.featuredImage?.url || '',  // ← null-safety check
+  date: article.publishedDate,
+  featured: article.featured
+}));
+```
+
+### **2. Images Not Loading in Arabic Version**
+
+**Problem**: Arabic content loads but images are broken/missing.
+
+**Root Cause**: Arabic articles in Hygraph may not have `featuredImage` assigned - only English versions have images.
+
+**Solution**: Update GraphQL queries to use fallback locales:
+```typescript
+// In src/utils/queries.ts
+export const GET_NEWS_ARTICLES = gql`
+  query GetNewsArticles($locale: Locale!, $first: Int = 10) {
+    articles(
+      locales: [$locale, en]  // ← Add English as fallback
+      orderBy: publishedDate_DESC
+      first: $first
+    ) {
+      // ... rest of query
+    }
+  }
+`;
+```
+
+### **3. NewsDetailPage Not Showing Arabic Content**
+
+**Problem**: News detail pages show English content even when Arabic is selected.
+
+**Root Cause**: NewsDetailPage component hardcoded to use `locale: 'en'` in GraphQL query.
+
+**Solution**:
+```typescript
+// In NewsDetailPage.tsx - Use current language
+import { useTranslation } from 'react-i18next';
+
+const NewsDetailPage: React.FC = () => {
+  const { i18n } = useTranslation();
+  
+  useEffect(() => {
+    const data = await hygraphClient.request(GET_ARTICLE_BY_SLUG, { 
+      slug,
+      locale: i18n.language || 'en'  // ← Use current language
+    });
+  }, [slug, i18n.language]);  // ← Add language to dependencies
+};
+```
+
+### **4. "[object Object]" Displaying Instead of Content**
+
+**Problem**: Article content shows as `[object Object]` instead of actual text.
+
+**Root Cause**: Hygraph returns rich text as `{ html: string }` object, not plain string.
+
+**Solution**:
+```typescript
+// Wrong ❌
+dangerouslySetInnerHTML={{ __html: article.content }}
+
+// Correct ✅
+dangerouslySetInnerHTML={{ __html: article.content.html }}
+```
+
+### **5. Compilation Errors: "Identifier Already Declared"**
+
+**Problem**: TypeScript compilation fails with variable name conflicts.
+
+**Root Cause**: Multiple variables with same name (e.g., `article`) in different scopes.
+
+**Solution**: Use unique, descriptive variable names:
+```typescript
+// Instead of generic names
+const article = ...
+const data = ...
+
+// Use specific names
+const currentArticle = ...
+const newsData = ...
+```
+
+### **6. Infinite Re-render Loops**
+
+**Problem**: Components re-render endlessly, causing performance issues.
+
+**Root Cause**: Missing dependencies in `useEffect` or `useCallback`.
+
+**Solution**:
+```typescript
+// Wrong ❌ - causes infinite loops
+const fetchData = async () => { /* ... */ };
+useEffect(() => { fetchData(); }, [fetchData]);
+
+// Correct ✅ - stable function reference
+const fetchData = useCallback(async () => { /* ... */ }, [dependency]);
+useEffect(() => { fetchData(); }, [fetchData]);
+```
+
+### **7. Development Server Issues**
+
+**Problem**: Hot Module Replacement (HMR) not working or changes not reflecting.
+
+**Solutions**:
+```bash
+# Clear cache and restart
+pkill -f "vite"
+npm run dev
+
+# Check for syntax errors in terminal
+# Look for duplicate variable declarations
+```
+
+### **Quick Debugging Checklist**
+1. ✅ Check browser console for errors
+2. ✅ Verify GraphQL queries in Hygraph playground
+3. ✅ Add null-safety checks to data transformations
+4. ✅ Use unique variable names
+5. ✅ Check useEffect dependencies
+6. ✅ Restart dev server if HMR issues persist
+
+---
+
 **Please upload your JSON data in the format above. If you have questions or need help converting from Excel, let us know!**

@@ -3,46 +3,60 @@ import { useTranslation } from 'react-i18next';
 import { motion, useInView } from 'framer-motion';
 import Button from '../ui/Button';
 import { NewsSlider } from '../news/NewsSlider';
-import type { NewsCardProps } from '../news/NewsCard';
+import { useNewsData } from '../../hooks/useNewsData';
+import type { NewsCardProps } from '../../types/news';
 
 const NewsroomSection: React.FC = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const { articles, loading, error } = useNewsData();
 
-  // Sample news data - will be replaced with CMS data later
-  const newsArticles: NewsCardProps[] = [
-    {
-      id: '1',
-      title: 'Al Istithmar Capital is among the Forbes Middle ...',
-      description: 'Alistithmar Capital is ranked 6th in Forbes Middle East\'s ranking of the largest asset managers in Saudi Arab ...',
-      image: '/images/news1.png'
-    },
-    {
-      id: '2',
-      title: 'Alistithmar Capital signs real estate development ag ...',
-      description: 'Alistithmar Capital is ranked 6th in Forbes Middle East\'s ranking of the largest asset managers in Saudi Arab ...',
-      image: '/images/news2.png'
-    },
-    {
-      id: '3',
-      title: 'Al Istithmar Capital is among the Forbes Middle ...',
-      description: 'Alistithmar Capital is ranked 6th in Forbes Middle East\'s ranking of the largest asset managers in Saudi Arab ...',
-      image: '/images/news3.png'
-    },
-    {
-      id: '4',
-      title: 'Alistithmar Capital expands investment portfolio ...',
-      description: 'Alistithmar Capital continues to strengthen its position in the Saudi market with strategic investments and partnerships ...',
-      image: '/images/news1.png'
-    },
-    {
-      id: '5',
-      title: 'New Sharia-compliant funds launched by Alistithmar ...',
-      description: 'The company introduces innovative Islamic investment solutions tailored for the modern investor seeking ethical returns ...',
-      image: '/images/news2.png'
-    }
-  ];
+  // Transform articles for NewsSlider
+  const newsArticles: NewsCardProps[] = articles.map(article => ({
+    id: article.id,
+    slug: article.slug,
+    title: article.title,
+    description: article.excerpt,
+    image: article.featuredImage?.url || '',
+    date: article.publishedDate,
+    featured: article.featured
+  }));
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="relative bg-white py-[150px] md:py-[200px] overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-12 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
+              <div className="h-6 bg-gray-200 rounded w-96 mx-auto mb-8"></div>
+              <div className="h-[300px] bg-gray-200 rounded-lg"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <section className="relative bg-white py-[150px] md:py-[200px] overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold text-icap-primary mb-6">
+              {t('newsroom.title')}
+            </h2>
+            <p className="text-red-600 mb-8">
+              Failed to load news articles. Please try again later.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },

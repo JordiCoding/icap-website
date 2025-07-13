@@ -19,7 +19,6 @@ const Home: React.FC = () => {
       <WhyAlistithmarSection />
       <NewsroomSection />
       <CtaSection />
-      {/* The rest of the landing page sections will go here */}
     </>
   );
 };

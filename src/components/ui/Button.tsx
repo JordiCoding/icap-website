@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 type ButtonProps<C extends React.ElementType> = {
   as?: C;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'black';
   children: React.ReactNode;
   className?: string;
 } & React.ComponentPropsWithoutRef<C>;
@@ -22,6 +22,7 @@ const Button = <C extends React.ElementType = 'button'>({
   const variantStyles = {
     primary: 'bg-icap-gold text-icap-primary hover:bg-icap-gold/90',
     secondary: 'bg-transparent border border-white text-white hover:bg-white hover:text-icap-primary',
+    black: 'bg-black text-white hover:bg-gray-800',
   };
 
   return (

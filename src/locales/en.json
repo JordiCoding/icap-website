@@ -99,5 +99,33 @@
       "high": "High Risk"
     },
     "shariaCompliant": "Sharia Compliant"
+  },
+  "globalMarkets": {
+    "titlePart1": "One platform",
+    "titlePart2": "Endless markets",
+    "subtitle": "Access U.S. and GCC markets in a few taps — all in one platform.",
+    "learnMore": "Learn More"
+  },
+  "whyAlistithmar": {
+    "title": "Why Alistithmar Capital?",
+    "subtitle": "Backed by one of the Kingdom's most trusted financial institutions — bringing decades of financial expertise.",
+    "secureTitle": "Secure & Trusted",
+    "secureDescription": "Licensed by the Capital Market Authority (CMA) — with enterprise-grade security and compliance.",
+    "shariaTitle": "Shariah-Compliant Options",
+    "shariaDescription": "A wide range of compliant funds and portfolios tailored for values-based investing.",
+    "globalTitle": "Global Reach, Local Roots",
+    "globalDescription": "Trade local markets or access global opportunities across the U.S. and Gulf region"
+  },
+  "newsroom": {
+    "title": "Newsroom",
+    "subtitle": "Stay updated with the latest news, media features, and announcements about Alistithmar Capital — as featured in leading publications.",
+    "viewAllArticles": "View All Articles"
+  },
+  "cta": {
+    "preTitle": "Ready to Take the Next Step?",
+    "mainTitle": "Start building your portfolio today",
+    "subtitle": "your future is one tap away",
+    "description": "Join a growing community of investors moving forward with ICAP.",
+    "scanMe": "Scan Me"
   }
 } 

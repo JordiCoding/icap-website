@@ -1,0 +1,99 @@
+/* Arabic Fonts */
+
+/* Almarai - Arabic Titles */
+@font-face {
+  font-family: 'Almarai';
+  src: url('./almarai/Almarai-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Almarai';
+  src: url('./almarai/Almarai-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Almarai';
+  src: url('./almarai/Almarai-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Almarai';
+  src: url('./almarai/Almarai-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Riada - Arabic Body Text */
+@font-face {
+  font-family: 'Riada';
+  src: url('./riada/Riada-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* English Fonts */
+
+/* Chap - English Titles */
+@font-face {
+  font-family: 'Chap';
+  src: url('./chap/Chap Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Jokker - English Body Text */
+@font-face {
+  font-family: 'Jokker';
+  src: url('./jokker/Jokker-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jokker';
+  src: url('./jokker/Jokker-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Typography System CSS Variables */
+:root {
+  /* Arabic Typography */
+  --font-arabic-title: 'Almarai', 'Arial', sans-serif;
+  --font-arabic-body: 'Riada', 'Arial', sans-serif;
+  
+  /* English Typography */
+  --font-english-title: 'Chap', 'Arial', sans-serif;
+  --font-english-body: 'Jokker', 'Arial', sans-serif;
+}
+
+/* Language-specific font classes */
+.font-title-ar {
+  font-family: var(--font-arabic-title);
+}
+
+.font-body-ar {
+  font-family: var(--font-arabic-body);
+}
+
+.font-title-en {
+  font-family: var(--font-english-title);
+}
+
+.font-body-en {
+  font-family: var(--font-english-body);
+} 

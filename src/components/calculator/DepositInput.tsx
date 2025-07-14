@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTypography } from '../../hooks/useTypography';
 
 interface DepositInputProps {
   value: number;
@@ -6,17 +7,21 @@ interface DepositInputProps {
 }
 
 const DepositInput: React.FC<DepositInputProps> = ({ value, onChange }) => {
+  const { getTypographyClasses } = useTypography();
+
   return (
-    <div className="mb-4 w-full">
-      <label className="block text-sm font-medium text-gray-700 mb-1">Initial Deposit</label>
-      <input
-        type="number"
-        className="w-full border rounded px-3 py-2 text-lg"
-        value={value}
-        min={0}
-        step={100}
-        onChange={e => onChange(Number(e.target.value))}
-      />
+    <div>
+      <label className={`block text-sm text-gray-700 mb-3 ${getTypographyClasses('body')}`}>Initial Deposit</label>
+      <div className="flex items-center bg-white border border-gray-300 rounded-lg px-4 py-3">
+        <span className={`text-2xl text-gray-700 mr-2 ${getTypographyClasses('body')}`}>SAR</span>
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className={`flex-1 text-2xl text-gray-900 bg-transparent border-none outline-none ${getTypographyClasses('body')}`}
+          placeholder="0"
+        />
+      </div>
     </div>
   );
 };

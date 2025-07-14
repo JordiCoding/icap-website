@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView } from 'framer-motion';
+import { useTypography } from '../../hooks/useTypography';
 
 const WhyAlistithmarSection: React.FC = () => {
   const { t } = useTranslation();
+  const { getTypographyClasses } = useTypography();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
@@ -23,10 +25,9 @@ const WhyAlistithmarSection: React.FC = () => {
   };
 
   return (
-    <div
+    <section 
       ref={ref}
-      className="bg-no-repeat bg-cover bg-center py-[150px] md:py-[200px] overflow-hidden"
-      style={{ backgroundImage: 'url(/images/darkbackground.png)' }}
+      className="relative bg-[#221200] py-[150px] md:py-[200px] overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -37,10 +38,10 @@ const WhyAlistithmarSection: React.FC = () => {
         >
           {/* Header */}
           <motion.div variants={itemVariants} className="mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className={`text-4xl lg:text-5xl text-white mb-6 ${getTypographyClasses('title')}`}>
               {t('whyAlistithmar.title')}
             </h2>
-            <p className="text-lg text-gray-300 max-w-4xl mx-auto">
+            <p className={`text-lg text-gray-300 max-w-4xl mx-auto ${getTypographyClasses('body')}`}>
               {t('whyAlistithmar.subtitle')}
             </p>
           </motion.div>
@@ -56,10 +57,10 @@ const WhyAlistithmarSection: React.FC = () => {
                   className="w-20 h-20 mx-auto object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">
+              <h3 className={`text-xl text-white mb-4 ${getTypographyClasses('title')}`}>
                 {t('whyAlistithmar.secureTitle')}
               </h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className={`text-gray-300 leading-relaxed ${getTypographyClasses('body')}`}>
                 {t('whyAlistithmar.secureDescription')}
               </p>
             </motion.div>
@@ -73,10 +74,10 @@ const WhyAlistithmarSection: React.FC = () => {
                   className="w-20 h-20 mx-auto object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">
+              <h3 className={`text-xl text-white mb-4 ${getTypographyClasses('title')}`}>
                 {t('whyAlistithmar.shariaTitle')}
               </h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className={`text-gray-300 leading-relaxed ${getTypographyClasses('body')}`}>
                 {t('whyAlistithmar.shariaDescription')}
               </p>
             </motion.div>
@@ -90,17 +91,17 @@ const WhyAlistithmarSection: React.FC = () => {
                   className="w-20 h-20 mx-auto object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">
+              <h3 className={`text-xl text-white mb-4 ${getTypographyClasses('title')}`}>
                 {t('whyAlistithmar.globalTitle')}
               </h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className={`text-gray-300 leading-relaxed ${getTypographyClasses('body')}`}>
                 {t('whyAlistithmar.globalDescription')}
               </p>
             </motion.div>
           </div>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

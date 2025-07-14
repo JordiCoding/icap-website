@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useTypography } from '../../hooks/useTypography';
 import type { NewsCardProps } from '../../types/news';
 
 export const NewsCard: React.FC<NewsCardProps> = ({
@@ -16,6 +17,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
+  const { getTypographyClasses } = useTypography();
 
   const handleClick = () => {
     navigate(`/news/${slug}`);
@@ -41,11 +43,11 @@ export const NewsCard: React.FC<NewsCardProps> = ({
         className="w-full h-48 object-cover"
       />
       <div className="p-6 text-left">
-        <p className="text-sm text-gray-500 mb-2">{formattedDate}</p>
-        <h3 className="text-xl font-bold text-icap-primary mb-3 line-clamp-2">
+        <p className={`text-sm text-gray-500 mb-2 ${getTypographyClasses('body')}`}>{formattedDate}</p>
+        <h3 className={`text-xl text-icap-primary mb-3 line-clamp-2 ${getTypographyClasses('title')}`}>
           {title}
         </h3>
-        <p className="text-gray-600 line-clamp-3 leading-relaxed">
+        <p className={`text-gray-600 line-clamp-3 leading-relaxed ${getTypographyClasses('body')}`}>
           {description}
         </p>
       </div>

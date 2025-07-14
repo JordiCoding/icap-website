@@ -1,12 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useTypography } from '../../hooks/useTypography';
 
-type ButtonProps<C extends React.ElementType> = {
+type ButtonVariant = 'primary' | 'secondary' | 'black';
+
+interface ButtonProps<C extends React.ElementType = 'button'> {
   as?: C;
-  variant?: 'primary' | 'secondary' | 'black';
+  variant?: ButtonVariant;
   children: React.ReactNode;
   className?: string;
-} & React.ComponentPropsWithoutRef<C>;
+}
 
 const Button = <C extends React.ElementType = 'button'>({
   as,
@@ -14,10 +17,11 @@ const Button = <C extends React.ElementType = 'button'>({
   children,
   className = '',
   ...props
-}: ButtonProps<C>) => {
+}: ButtonProps<C> & Omit<React.ComponentPropsWithoutRef<C>, keyof ButtonProps<C>>) => {
   const Component = as || 'button';
+  const { getTypographyClasses } = useTypography();
 
-  const baseStyles = 'inline-block px-8 py-4 rounded-[32px] font-bold transition-colors text-center';
+  const baseStyles = `inline-block px-8 py-4 rounded-[32px] transition-colors text-center ${getTypographyClasses('body')}`;
 
   const variantStyles = {
     primary: 'bg-icap-gold text-icap-primary hover:bg-icap-gold/90',

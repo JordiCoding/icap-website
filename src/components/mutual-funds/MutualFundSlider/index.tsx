@@ -3,11 +3,13 @@ import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { FundCard } from './FundCard';
 import { useFundSlider } from '../../../hooks/useFundSlider';
+import { useTypography } from '../../../hooks/useTypography';
 
 export function MutualFundSlider() {
+  const { getTypographyClasses } = useTypography();
+  const { data, isLoading, error } = useFundSlider();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const { data, isLoading, error } = useFundSlider();
   const [shouldShowNavigation, setShouldShowNavigation] = useState(true);
   const [maxSlide, setMaxSlide] = useState(0);
 
@@ -86,7 +88,7 @@ export function MutualFundSlider() {
   if (error || !data) {
     return (
       <div className="max-w-[1062px] mx-auto px-6 py-12 text-center">
-        <p className="text-red-500">Failed to load mutual funds.</p>
+        <p className={`text-red-500 ${getTypographyClasses('body')}`}>Failed to load mutual funds.</p>
       </div>
     );
   }
@@ -95,8 +97,22 @@ export function MutualFundSlider() {
     <div className="max-w-[1062px] mx-auto px-6">
       {/* Section Title and Subtitle */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-semibold mb-4">{data.title}</h2>
-        <p className="text-gray-600">{data.subtitle}</p>
+        {/* Title: 'Grow' in #A44F17, rest black */}
+        <h2 className={`text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] leading-[1.2] tracking-tight ${getTypographyClasses('title')}`}
+            style={{ color: 'black' }}>
+          {/* Split the title so 'Grow' is colored */}
+          {data.title.startsWith('Grow') ? (
+            <>
+              <span style={{ color: '#A44F17' }}>Grow</span>
+              {data.title.slice(4)}
+            </>
+          ) : (
+            data.title
+          )}
+        </h2>
+        {/* Subtitle: all black, preserve bold if present in CMS */}
+        <p className={`mt-4 sm:mt-5 md:mt-6 text-base sm:text-lg md:text-xl text-black max-w-[90%] sm:max-w-[80%] md:max-w-2xl mx-auto ${getTypographyClasses('body')}`}
+           dangerouslySetInnerHTML={{ __html: data.subtitle }} />
       </div>
 
       <div className="py-[12px]">

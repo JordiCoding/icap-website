@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { useTypography } from '../../../hooks/useTypography';
 import type { FundCardProps } from './types';
 
 const RISK_STYLES = {
@@ -26,6 +27,7 @@ export function FundCard({
   className
 }: FundCardProps) {
   const { t } = useTranslation();
+  const { getTypographyClasses } = useTypography();
   const riskStyle = RISK_STYLES[riskLevel];
 
   return (
@@ -54,10 +56,10 @@ export function FundCard({
 
       {/* Title and Description */}
       <div className="mb-8">
-        <h3 className="text-2xl font-medium text-gray-900 mb-4">
+        <h3 className={`text-2xl font-medium text-gray-900 mb-4 ${getTypographyClasses('title')}`}>
           {title}
         </h3>
-        <p className="text-base text-gray-600 line-clamp-3">
+        <p className={`text-base text-gray-600 line-clamp-3 ${getTypographyClasses('body')}`}>
           {description}
         </p>
       </div>
@@ -65,13 +67,14 @@ export function FundCard({
       {/* Risk Level */}
       <div className="mt-auto">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-gray-600">
+          <span className={`text-sm text-gray-600 ${getTypographyClasses('body')}`}>
             {t('mutualFunds.riskLevel')}
           </span>
           <span className={clsx(
             "px-3 py-1 rounded-full text-sm font-medium",
             riskStyle.bg,
-            riskStyle.text
+            riskStyle.text,
+            getTypographyClasses('body')
           )}>
             {t(`mutualFunds.risk.${riskLevel}`)}
           </span>
@@ -79,7 +82,7 @@ export function FundCard({
 
         {/* Sharia Compliant Badge */}
         {isShariaCompliant && (
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className={`flex items-center gap-2 text-sm text-gray-600 ${getTypographyClasses('body')}`}>
             <svg
               width="16"
               height="16"
@@ -101,4 +104,6 @@ export function FundCard({
       </div>
     </div>
   );
-} 
+}
+
+export default FundCard; 

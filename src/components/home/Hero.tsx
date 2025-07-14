@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 import { useCmsData } from '../../hooks/useCmsData';
+import { useTypography } from '../../hooks/useTypography';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,6 +22,7 @@ const itemVariants = {
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
+  const { getTypographyClasses } = useTypography();
   
   // Fetch CMS data
   const { data: cmsData, loading: cmsLoading, error: cmsError } = useCmsData();
@@ -38,7 +40,7 @@ const Hero: React.FC = () => {
       <div className="relative h-screen bg-gray-900 flex items-center justify-center text-white">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
-          <p>{t('common.loading')}</p>
+          <p className={getTypographyClasses('body')}>{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -62,13 +64,13 @@ const Hero: React.FC = () => {
         animate="visible"
       >
         <motion.h1
-          className="text-5xl md:text-7xl font-bold mb-4"
+          className={`text-5xl md:text-7xl font-bold mb-4 ${getTypographyClasses('body')}`}
           variants={itemVariants}
         >
           {title}
         </motion.h1>
         <motion.p
-          className="text-lg md:text-xl mb-8"
+          className={`text-lg md:text-xl mb-8 ${getTypographyClasses('body')}`}
           variants={itemVariants}
         >
           {subtitle}

@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../../hooks/useLanguage';
+import { useTypography } from '../../hooks/useTypography';
 import MobileNav from './MobileNav';
 import { Link } from 'react-router-dom';
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <Link to={href} className="text-white hover:text-primary-300 transition-colors duration-200">
-    {children}
-  </Link>
-);
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  const { getTypographyClasses } = useTypography();
+  return (
+    <Link to={href} className={`text-white hover:text-primary-300 transition-colors duration-200 ${getTypographyClasses('body')}`}>
+      {children}
+    </Link>
+  );
+};
 
-const NavLinkDropdown = ({ title, children, isOpen, onClick }: { title: string; children: React.ReactNode, isOpen: boolean, onClick: () => void }) => (
-  <div className="relative group">
-    <button onClick={onClick} className="text-white hover:text-primary-300 transition-colors duration-200 flex items-center gap-2">
-      <span>{title}</span>
-      <img src="/icons/chevron-down.svg" alt="dropdown" className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-    </button>
-    {isOpen && children}
-  </div>
-);
+const NavLinkDropdown = ({ title, children, isOpen, onClick }: { title: string; children: React.ReactNode, isOpen: boolean, onClick: () => void }) => {
+  const { getTypographyClasses } = useTypography();
+  return (
+    <div className="relative group">
+      <button onClick={onClick} className={`text-white hover:text-primary-300 transition-colors duration-200 flex items-center gap-2 ${getTypographyClasses('body')}`}>
+        <span>{title}</span>
+        <img src="/icons/chevron-down.svg" alt="dropdown" className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {isOpen && children}
+    </div>
+  );
+};
 
 interface HeaderProps {
   background?: string;
@@ -28,6 +35,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) => {
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
+  const { getTypographyClasses } = useTypography();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -71,9 +79,9 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
                 onClick={() => handleDropdown('brokerage')}
               >
                 <div className="absolute top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{t('footer.localBrokerage')}</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{t('footer.globalBrokerage')}</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{t('footer.marginLending')}</a>
+                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.localBrokerage')}</a>
+                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.globalBrokerage')}</a>
+                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.marginLending')}</a>
                 </div>
               </NavLinkDropdown>
               <NavLinkDropdown
@@ -82,8 +90,8 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
                 onClick={() => handleDropdown('assetManagment')}
               >
                 <div className="absolute top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{t('footer.portfolioManagment')}</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{t('footer.mutualFunds')}</a>
+                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.portfolioManagment')}</a>
+                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.mutualFunds')}</a>
                 </div>
               </NavLinkDropdown>
               <NavLink href="/investment-banking">{t('navigation.investmentBanking')}</NavLink>
@@ -99,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
               </button>
               <button
                 onClick={toggleLanguage}
-                className="text-white hover:text-primary-300 transition-colors duration-200 font-medium"
+                className={`text-white hover:text-primary-300 transition-colors duration-200 font-medium ${getTypographyClasses('body')}`}
               >
                 {currentLanguage === 'en' ? 'AR' : 'EN'}
               </button>

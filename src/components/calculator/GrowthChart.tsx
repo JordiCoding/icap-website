@@ -1,21 +1,44 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { AreaChart, Area, XAxis, ResponsiveContainer } from 'recharts';
+import { useTypography } from '../../hooks/useTypography';
 
 interface GrowthChartProps {
-  data: { date: string; nav: number }[];
+  data: Array<{ year: string; value: number }>;
 }
 
 const GrowthChart: React.FC<GrowthChartProps> = ({ data }) => {
+  const { getTypographyClasses } = useTypography();
+
   return (
-    <div className="bg-white rounded shadow p-4 w-full h-64">
+    <div className="w-full h-full">
+      <div className="mb-4">
+        <p className={`text-sm text-gray-900 ${getTypographyClasses('body')}`}>
+          Investment Growth Over Time
+        </p>
+      </div>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" minTickGap={30} tick={{ fontSize: 12 }} />
-          <YAxis tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
-          <Tooltip formatter={(value: number) => value.toFixed(2)} labelFormatter={(label: string) => `Date: ${label}`} />
-          <Line type="monotone" dataKey="nav" stroke="#111" strokeWidth={2} dot={false} />
-        </LineChart>
+        <AreaChart data={data}>
+          <defs>
+            <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#EFE1C9" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#EFE1C9" stopOpacity={0.1}/>
+            </linearGradient>
+          </defs>
+          <XAxis 
+            dataKey="year" 
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 12, fill: '#6B7280' }}
+          />
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke="#DFCAA5"
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorValue)"
+          />
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );

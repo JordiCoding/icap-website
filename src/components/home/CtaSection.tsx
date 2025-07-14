@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView } from 'framer-motion';
+import { useTypography } from '../../hooks/useTypography';
 
 const CtaSection: React.FC = () => {
   const { t } = useTranslation();
+  const { getTypographyClasses } = useTypography();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
@@ -37,28 +39,28 @@ const CtaSection: React.FC = () => {
         >
           {/* Pre-title */}
           <motion.div variants={itemVariants} className="mb-4">
-            <p className="text-lg text-gray-600">
+            <p className={`text-lg text-gray-600 ${getTypographyClasses('body')}`}>
               {t('cta.preTitle')}
             </p>
           </motion.div>
 
           {/* Main Title */}
           <motion.div variants={itemVariants} className="mb-6">
-            <h2 className="text-4xl lg:text-6xl font-bold text-icap-primary leading-tight">
+            <h2 className={`text-4xl lg:text-6xl font-bold text-icap-primary leading-tight ${getTypographyClasses('title')}`}>
               {t('cta.mainTitle')}
             </h2>
           </motion.div>
 
           {/* Subtitle */}
           <motion.div variants={itemVariants} className="mb-8">
-            <h3 className="text-3xl lg:text-4xl font-medium text-[#C87D55] leading-tight">
+            <h3 className={`text-3xl lg:text-4xl font-medium text-[#C87D55] leading-tight ${getTypographyClasses('title')}`}>
               {t('cta.subtitle')}
             </h3>
           </motion.div>
 
           {/* Description */}
           <motion.div variants={itemVariants} className="mb-16">
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className={`text-lg text-gray-600 max-w-2xl mx-auto ${getTypographyClasses('body')}`}>
               {t('cta.description')}
             </p>
           </motion.div>
@@ -71,7 +73,7 @@ const CtaSection: React.FC = () => {
                 alt="QR Code"
                 className="w-32 h-32 mb-4"
               />
-              <p className="text-gray-600 text-lg">
+              <p className={`text-gray-600 text-lg ${getTypographyClasses('body')}`}>
                 {t('cta.scanMe')}
               </p>
             </div>

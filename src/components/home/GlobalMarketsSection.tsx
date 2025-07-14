@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useInView } from 'framer-motion';
+import { useTypography } from '../../hooks/useTypography';
 import Button from '../ui/Button';
 
 const GlobalMarketsSection: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const { getTypographyClasses } = useTypography();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const isArabic = i18n.language === 'ar';
@@ -54,26 +56,26 @@ const GlobalMarketsSection: React.FC = () => {
             className={`px-4 max-w-xl ${contentClasses}`}
           >
             {/* Desktop Title */}
-            <h2 className="hidden md:block text-4xl lg:text-5xl xl:text-6xl font-normal text-white whitespace-nowrap">
+            <h2 className={`hidden md:block text-4xl lg:text-5xl xl:text-6xl text-white whitespace-nowrap ${getTypographyClasses('title')}`}>
               {t('globalMarkets.titlePart1')} <span className="text-[#F3B660]">{t('globalMarkets.titlePart2')}</span>
             </h2>
 
             {/* Mobile Title */}
             <div className="block md:hidden text-center">
-              <h2 className="text-4xl font-normal mb-4">
+              <h2 className={`text-4xl mb-4 ${getTypographyClasses('title')}`}>
                 <span className="text-[#F3B660] block mb-2">{t('globalMarkets.titlePart1')}</span>
                 <span className="text-white block">{t('globalMarkets.titlePart2')}</span>
               </h2>
             </div>
 
             {/* Mobile Subtitle */}
-            <div className="block md:hidden text-white text-center mb-8" style={{ fontSize: '22px', lineHeight: '32px' }}>
+            <div className={`block md:hidden text-white text-center mb-8 ${getTypographyClasses('body')}`} style={{ fontSize: '22px', lineHeight: '32px' }}>
               <p>{t('globalMarkets.subtitle').split('— ')[0]}</p>
               <p>— {t('globalMarkets.subtitle').split('— ')[1]}</p>
             </div>
 
             {/* Desktop Subtitle */}
-            <div className="hidden md:block text-white mt-6 max-w-[500px]" style={{ fontSize: '22px', lineHeight: '32px' }}>
+            <div className={`hidden md:block text-white mt-6 max-w-[500px] ${getTypographyClasses('body')}`} style={{ fontSize: '22px', lineHeight: '32px' }}>
               <p>{t('globalMarkets.subtitle').split('— ')[0]}</p>
               <p>— {t('globalMarkets.subtitle').split('— ')[1]}</p>
             </div>
@@ -83,16 +85,13 @@ const GlobalMarketsSection: React.FC = () => {
               variant="primary" 
               as="a" 
               href="#" 
-              className="bg-white text-black hover:bg-gray-100 text-base font-medium mb-8 md:mt-8"
+              className={`bg-white text-black hover:bg-gray-100 text-base mb-8 md:mt-8 ${getTypographyClasses('body')}`}
             >
               {t('globalMarkets.learnMore')}
             </Button>
           </motion.div>
         </div>
       </div>
-
-      {/* Platform Icons - To be implemented */}
-      {/* We'll add the floating platform icons in a separate PR */}
     </div>
   );
 };

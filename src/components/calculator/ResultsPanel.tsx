@@ -1,29 +1,43 @@
 import React from 'react';
+import { useTypography } from '../../hooks/useTypography';
 
 interface ResultsPanelProps {
-  value: number;
-  cagr: number;
-  dividends: number;
-  period: string;
-  showDividends?: boolean;
+  totalValue: number;
+  totalGain: number;
+  initialDeposit: number;
+  timeframe: string;
 }
 
-const ResultsPanel: React.FC<ResultsPanelProps> = ({ value, cagr, dividends, period, showDividends = false }) => {
+const ResultsPanel: React.FC<ResultsPanelProps> = ({ totalValue, totalGain, initialDeposit, timeframe }) => {
+  const { getTypographyClasses } = useTypography();
+
   return (
-    <div className="bg-gray-100 rounded p-4 mb-4 flex flex-col gap-2">
-      <div className="text-2xl font-bold">SAR {value.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
-      <div className="text-gray-600 text-sm">Fund is calculated on {period} past average return</div>
-      <div className="flex gap-6 mt-2">
-        <div>
-          <div className="text-xs text-gray-500">Average annual return</div>
-          <div className="font-semibold">{(cagr * 100).toFixed(2)}%</div>
+    <div className="bg-[#FBF7F1] p-6 rounded-lg">
+      <div className="mb-6">
+        <div className={`text-4xl md:text-5xl text-gray-900 mb-2 ${getTypographyClasses('title')}`}>
+          SAR {totalValue.toLocaleString()}
         </div>
-        {showDividends && (
-          <div>
-            <div className="text-xs text-gray-500">Dividends Earned</div>
-            <div className="font-semibold">SAR {dividends.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
-          </div>
-        )}
+        <div className={`text-gray-600 ${getTypographyClasses('body')}`}>
+          Total Value After {timeframe}
+        </div>
+      </div>
+      
+      <div className="mb-6">
+        <div className={`text-2xl text-gray-900 ${getTypographyClasses('title')}`}>
+          +SAR {totalGain.toLocaleString()}
+        </div>
+        <div className={`text-gray-600 ${getTypographyClasses('body')}`}>
+          Total Gain
+        </div>
+      </div>
+      
+      <div className="mb-6">
+        <div className={`text-2xl text-gray-900 ${getTypographyClasses('title')}`}>
+          {((totalGain / initialDeposit) * 100).toFixed(1)}%
+        </div>
+        <div className={`text-gray-600 ${getTypographyClasses('body')}`}>
+          Total Return
+        </div>
       </div>
     </div>
   );

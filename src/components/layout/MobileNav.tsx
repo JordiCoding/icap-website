@@ -1,37 +1,50 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLanguage } from '../../hooks/useLanguage';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../hooks/useLanguage';
+import { useTypography } from '../../hooks/useTypography';
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MobileNavLink = ({ to, children, onClick }: { to: string; children: React.ReactNode; onClick?: () => void }) => (
-  <Link to={to} className="text-2xl text-white font-bold" onClick={onClick}>
-    {children}
-  </Link>
-);
+const MobileNavLink: React.FC<{ to: string; onClick: () => void; children: React.ReactNode }> = ({ to, onClick, children }) => {
+  const { getTypographyClasses } = useTypography();
+  return (
+    <Link to={to} className={`text-2xl text-white ${getTypographyClasses('body')}`} onClick={onClick}>
+      {children}
+    </Link>
+  );
+};
 
 interface DropdownItem {
-  label: string;
   to: string;
+  label: string;
 }
 
-const MobileNavDropdown = ({ title, items, onClose }: { title: string; items: DropdownItem[]; onClose: () => void; }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const MobileNavDropdown: React.FC<{ title: string; items: DropdownItem[]; onClose: () => void }> = ({ title, items, onClose }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { getTypographyClasses } = useTypography();
+
   return (
-    <div className="w-full text-center">
+    <div className="text-center">
       <button
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="text-2xl text-white font-bold flex items-center justify-center gap-2 w-full"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`text-2xl text-white flex items-center justify-center gap-2 w-full ${getTypographyClasses('body')}`}
       >
-        <span>{title}</span>
-        <img src="/icons/chevron-down.svg" alt="dropdown" className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+        {title}
+        <svg
+          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
-      {isDropdownOpen && (
-        <div className="flex flex-col items-center gap-4 mt-4">
+      {isOpen && (
+        <div className="mt-4 space-y-3">
           {items.map((item) => (
             <MobileNavLink key={item.to} to={item.to} onClick={onClose}>
               {item.label}
@@ -46,6 +59,7 @@ const MobileNavDropdown = ({ title, items, onClose }: { title: string; items: Dr
 const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
+  const { getTypographyClasses } = useTypography();
 
   const toggleLanguage = () => {
     const newLang = currentLanguage === 'en' ? 'ar' : 'en';
@@ -75,15 +89,10 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
         <MobileNavLink to="/real-estate" onClick={onClose}>{t('navigation.realEstate')}</MobileNavLink>
         <MobileNavLink to="/about" onClick={onClose}>{t('navigation.about')}</MobileNavLink>
         <MobileNavLink to="/newsroom" onClick={onClose}>{t('navigation.newsroom')}</MobileNavLink>
-        <button onClick={toggleLanguage} className="text-2xl text-white font-bold">
+        <button onClick={toggleLanguage} className={`text-2xl text-white ${getTypographyClasses('body')}`}>
           {currentLanguage === 'en' ? 'AR' : 'EN'}
         </button>
       </div>
-      <button onClick={onClose} className="absolute top-8 right-8 text-white">
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
     </div>
   );
 };

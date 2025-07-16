@@ -5,16 +5,16 @@ import type { FundCardProps } from './types';
 
 const RISK_STYLES = {
   low: {
-    bg: 'bg-[#EAFAF3]',
-    text: 'text-[#1F9D61]'
+    bg: 'bg-[#E0F0DD]', // Green
+    text: 'text-black'
   },
   medium: {
-    bg: 'bg-[#FEF5E7]',
-    text: 'text-[#F39C12]'
+    bg: 'bg-[#F9F3D5]', // Yellow
+    text: 'text-black'
   },
   high: {
-    bg: 'bg-[#FEECEC]',
-    text: 'text-[#E74C3C]'
+    bg: 'bg-[#F3D7D7]', // Red
+    text: 'text-black'
   }
 } as const;
 
@@ -35,72 +35,67 @@ export function FundCard({
       className={clsx(
         "w-[330px] h-[454px]",
         "bg-white",
-        "rounded-[20px]",
+        "rounded-[32px]",
         "border border-[#E5E7EB]",
         "hover:scale-[1.02]",
         "transition-transform duration-300",
-        "p-8",
-        "flex flex-col",
-        "cursor-pointer",
+        "flex flex-col cursor-pointer overflow-hidden",
         className
       )}
     >
-      {/* Icon */}
-      <div className="mb-6">
-        {icon?.url ? (
-          <img src={icon.url} alt="" className="w-12 h-12" />
-        ) : (
-          <div className="w-12 h-12 bg-gray-200 rounded-lg" /> // Placeholder
-        )}
+      {/* Top section: Cream background and icon */}
+      <div className="relative w-full flex flex-col items-center justify-center" style={{ height: '35%' }}>
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            background: '#FAF6ED',
+            borderTopLeftRadius: '32px',
+            borderTopRightRadius: '32px',
+            zIndex: 1,
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
+          {icon?.url ? (
+            <img src={icon.url} alt="" className="w-24 h-24 object-contain" />
+          ) : (
+            <div className="w-24 h-24 bg-gray-200 rounded-lg" /> // Placeholder
+          )}
+        </div>
       </div>
-
-      {/* Title and Description */}
-      <div className="mb-8">
-        <h3 className={`text-2xl font-medium text-gray-900 mb-4 ${getTypographyClasses('title')}`}>
-          {title}
-        </h3>
-        <p className={`text-base text-gray-600 line-clamp-3 ${getTypographyClasses('body')}`}>
-          {description}
-        </p>
-      </div>
-
-      {/* Risk Level */}
-      <div className="mt-auto">
-        <div className="flex items-center justify-between mb-4">
-          <span className={`text-sm text-gray-600 ${getTypographyClasses('body')}`}>
-            {t('mutualFunds.riskLevel')}
-          </span>
+      {/* Card content below top section */}
+      <div className="flex-1 flex flex-col px-8 pb-8 pt-6">
+        <h3 className={clsx(
+          "mb-4 text-left font-bold text-gray-900",
+          getTypographyClasses('title')
+        )} style={{ fontSize: 20, lineHeight: '28px' }}>{title}</h3>
+        {/* Badges Row */}
+        <div className="flex flex-row items-center gap-3 mb-4">
+          {/* Risk Badge */}
           <span className={clsx(
-            "px-3 py-1 rounded-full text-sm font-medium",
+            "flex items-center justify-center px-4",
             riskStyle.bg,
             riskStyle.text,
+            "rounded-[8px] h-8 text-[12px] font-medium",
             getTypographyClasses('body')
           )}>
             {t(`mutualFunds.risk.${riskLevel}`)}
           </span>
+          {/* Sharia Compliant Badge */}
+          {isShariaCompliant && (
+            <span className={clsx(
+              "flex items-center justify-center px-4 rounded-[8px] h-8 text-[12px] font-medium bg-[#FBF7F1] text-black gap-1",
+              getTypographyClasses('body')
+            )}>
+              Sharia Compliant
+            </span>
+          )}
         </div>
-
-        {/* Sharia Compliant Badge */}
-        {isShariaCompliant && (
-          <div className={`flex items-center gap-2 text-sm text-gray-600 ${getTypographyClasses('body')}`}>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13.3334 4L6.00008 11.3333L2.66675 8"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {t('mutualFunds.shariaCompliant')}
-          </div>
-        )}
+        {/* Description */}
+        <p className={clsx(
+          "text-left text-gray-600 leading-relaxed",
+          getTypographyClasses('body')
+        )} style={{ fontSize: 16, lineHeight: '26px' }}>{description}</p>
       </div>
     </div>
   );

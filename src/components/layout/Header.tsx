@@ -73,31 +73,12 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
-              <NavLinkDropdown
-                title={t('navigation.brokerage')}
-                isOpen={openDropdown === 'brokerage'}
-                onClick={() => handleDropdown('brokerage')}
-              >
-                <div className="absolute top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.localBrokerage')}</a>
-                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.globalBrokerage')}</a>
-                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.marginLending')}</a>
-                </div>
-              </NavLinkDropdown>
-              <NavLinkDropdown
-                title={t('navigation.assetManagment')}
-                isOpen={openDropdown === 'assetManagment'}
-                onClick={() => handleDropdown('assetManagment')}
-              >
-                <div className="absolute top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.portfolioManagment')}</a>
-                  <a href="#" className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${getTypographyClasses('body')}`}>{t('footer.mutualFunds')}</a>
-                </div>
-              </NavLinkDropdown>
+              <NavLink href="#">{t('navigation.brokerage')}</NavLink>
+              <NavLink href="#">{t('navigation.assetManagment')}</NavLink>
               <NavLink href="/investment-banking">{t('navigation.investmentBanking')}</NavLink>
               <NavLink href="/real-estate">{t('navigation.realEstate')}</NavLink>
               <NavLink href="/about">{t('navigation.about')}</NavLink>
-              <NavLink href="/newsroom">{t('navigation.newsroom')}</NavLink>
+              {/* Removed Newsroom link */}
             </nav>
 
             {/* Right side controls */}

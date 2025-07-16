@@ -29,7 +29,13 @@ const WhyAlistithmarSection: React.FC = () => {
       ref={ref}
       className="relative bg-[#221200] py-[150px] md:py-[200px] overflow-hidden"
     >
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-no-repeat bg-cover bg-center z-0"
+        style={{ backgroundImage: 'url(/images/darkbackground.png)' }}
+        aria-hidden="true"
+      />
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"

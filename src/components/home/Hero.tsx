@@ -56,7 +56,6 @@ const Hero: React.FC = () => {
       className="relative h-screen bg-cover bg-center flex items-center justify-center text-white"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="absolute inset-0 bg-black opacity-30"></div>
       <motion.div
         className="relative z-10 text-center"
         variants={containerVariants}

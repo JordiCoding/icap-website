@@ -67,28 +67,27 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const brokerageItems: DropdownItem[] = [
-    { to: '#', label: t('footer.localBrokerage') },
-    { to: '#', label: t('footer.globalBrokerage') },
-    { to: '#', label: t('footer.marginLending') },
-  ];
-
-  const assetManagementItems: DropdownItem[] = [
-    { to: '#', label: t('footer.portfolioManagment') },
-    { to: '#', label: t('footer.mutualFunds') },
-  ];
-
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#1D1306] z-50 md:hidden p-8">
-      <div className="flex flex-col items-center justify-center h-full gap-8">
-        <MobileNavDropdown title={t('navigation.brokerage')} items={brokerageItems} onClose={onClose} />
-        <MobileNavDropdown title={t('navigation.assetManagment')} items={assetManagementItems} onClose={onClose} />
+    <div className="fixed inset-0 bg-[#1D1306] z-50 md:hidden">
+      {/* Close Button - Top Right */}
+      <button
+        onClick={onClose}
+        className="absolute top-8 right-8 text-white hover:text-gray-300 transition-colors"
+        aria-label="Close menu"
+      >
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div className="flex flex-col items-center justify-center h-full gap-8 p-8">
+        <MobileNavLink to="#" onClick={onClose}>{t('navigation.brokerage')}</MobileNavLink>
+        <MobileNavLink to="#" onClick={onClose}>{t('navigation.assetManagment')}</MobileNavLink>
         <MobileNavLink to="/investment-banking" onClick={onClose}>{t('navigation.investmentBanking')}</MobileNavLink>
         <MobileNavLink to="/real-estate" onClick={onClose}>{t('navigation.realEstate')}</MobileNavLink>
         <MobileNavLink to="/about" onClick={onClose}>{t('navigation.about')}</MobileNavLink>
-        <MobileNavLink to="/newsroom" onClick={onClose}>{t('navigation.newsroom')}</MobileNavLink>
         <button onClick={toggleLanguage} className={`text-2xl text-white ${getTypographyClasses('body')}`}>
           {currentLanguage === 'en' ? 'AR' : 'EN'}
         </button>

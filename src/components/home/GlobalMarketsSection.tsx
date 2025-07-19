@@ -82,10 +82,10 @@ const GlobalMarketsSection: React.FC = () => {
 
             {/* CTA Button */}
             <Button 
-              variant="primary" 
+              variant="white" 
               as="a" 
               href="#" 
-              className={`bg-white text-black hover:bg-gray-100 text-base mb-8 md:mt-8 ${getTypographyClasses('body')}`}
+              className={`text-base mb-8 md:mt-8 ${getTypographyClasses('body')}`}
             >
               {t('globalMarkets.learnMore')}
             </Button>

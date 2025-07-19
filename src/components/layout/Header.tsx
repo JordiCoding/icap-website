@@ -4,6 +4,8 @@ import { useLanguage } from '../../hooks/useLanguage';
 import { useTypography } from '../../hooks/useTypography';
 import MobileNav from './MobileNav';
 import { Link } from 'react-router-dom';
+import Button from '../ui/Button';
+import { useCmsData } from '../../hooks/useCmsData';
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const { getTypographyClasses } = useTypography();
@@ -39,6 +41,11 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  // Fetch CMS data for CTA buttons
+  const { data: cmsData } = useCmsData();
+  const ctaPrimary = cmsData?.hero?.ctaPrimary || t('home.login');
+  const ctaSecondary = cmsData?.hero?.ctaSecondary || t('home.signup');
+
   const toggleLanguage = () => {
     const newLang = currentLanguage === 'en' ? 'ar' : 'en';
     changeLanguage(newLang);
@@ -63,25 +70,23 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
         style={{ backgroundColor: background }}
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex-shrink-0">
+          <div className="flex items-center justify-between w-full">
+            {/* Block 1: Logo + Links */}
+            <div className="flex items-center gap-6">
               <Link to="/">
                 <img className="h-8 w-auto" src="/logo/icap-logo.svg" alt="ICAP Logo" />
               </Link>
+              <nav className="hidden md:flex items-center gap-6">
+                <NavLink href="/brokerage">{t('navigation.brokerage')}</NavLink>
+                <NavLink href="#">{t('navigation.assetManagment')}</NavLink>
+                <NavLink href="/investment-banking">{t('navigation.investmentBanking')}</NavLink>
+                <NavLink href="/real-estate">{t('navigation.realEstate')}</NavLink>
+                <NavLink href="/about">{t('navigation.about')}</NavLink>
+                {/* Removed Newsroom link */}
+              </nav>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
-              <NavLink href="#">{t('navigation.brokerage')}</NavLink>
-              <NavLink href="#">{t('navigation.assetManagment')}</NavLink>
-              <NavLink href="/investment-banking">{t('navigation.investmentBanking')}</NavLink>
-              <NavLink href="/real-estate">{t('navigation.realEstate')}</NavLink>
-              <NavLink href="/about">{t('navigation.about')}</NavLink>
-              {/* Removed Newsroom link */}
-            </nav>
-
-            {/* Right side controls */}
+            {/* Block 2: Search, Language Toggle, Buttons */}
             <div className="hidden md:flex items-center gap-4">
               <button>
                 <img src="/icons/search.svg" alt="Search" className="w-6 h-6" />
@@ -92,6 +97,9 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
               >
                 {currentLanguage === 'en' ? 'AR' : 'EN'}
               </button>
+              {/* CTA Buttons moved from Hero */}
+              <Button variant="secondary" className="px-4 py-2 text-sm">{ctaPrimary}</Button>
+              <Button variant="primary" className="px-4 py-2 text-sm">{ctaSecondary}</Button>
             </div>
 
             {/* Mobile Menu Button */}

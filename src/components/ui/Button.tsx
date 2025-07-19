@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { useTypography } from '../../hooks/useTypography';
 
-type ButtonVariant = 'primary' | 'secondary' | 'black';
+type ButtonVariant = 'primary' | 'secondary' | 'black' | 'white';
 
 interface ButtonProps<C extends React.ElementType = 'button'> {
   as?: C;
@@ -21,12 +21,13 @@ const Button = <C extends React.ElementType = 'button'>({
   const Component = as || 'button';
   const { getTypographyClasses } = useTypography();
 
-  const baseStyles = `inline-block px-8 py-4 rounded-[32px] transition-colors text-center ${getTypographyClasses('body')}`;
+  const baseStyles = `inline-block px-8 py-4 transition-colors text-center ${getTypographyClasses('body')}`;
 
   const variantStyles = {
-    primary: 'bg-icap-gold text-icap-primary hover:bg-icap-gold/90',
-    secondary: 'bg-transparent border border-white text-white hover:bg-white hover:text-icap-primary',
-    black: 'bg-black text-white hover:bg-gray-800',
+    primary: 'rounded-[52px] bg-gradient-to-r from-[#F2D794] to-[#D0A457] text-icap-primary hover:opacity-90',
+    secondary: 'rounded-[32px] bg-transparent border border-white text-white hover:bg-white hover:text-icap-primary',
+    black: 'rounded-[32px] bg-black text-white hover:bg-gray-800',
+    white: 'rounded-[32px] bg-white text-icap-primary hover:bg-gray-100',
   };
 
   return (

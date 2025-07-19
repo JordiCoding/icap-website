@@ -75,11 +75,10 @@ const Hero: React.FC = () => {
           {subtitle}
         </motion.p>
         <motion.div
-          className="flex justify-center gap-4"
+          className="flex justify-center"
           variants={itemVariants}
         >
-          <Button variant="primary">{ctaPrimary}</Button>
-          <Button variant="secondary">{ctaSecondary}</Button>
+          <Button variant="primary">{t('home.startInvesting')}</Button>
         </motion.div>
       </motion.div>
     </div>

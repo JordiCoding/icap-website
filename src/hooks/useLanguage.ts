@@ -14,12 +14,16 @@ export const useLanguage = () => {
   }, [i18n]);
 
   useEffect(() => {
-    // Initialize language from localStorage or browser
+    // Initialize language from localStorage or browser only if not already set
+    if (!i18n.language || i18n.language === 'en' || i18n.language === 'ar') {
     const savedLanguage = localStorage.getItem('language') as 'en' | 'ar';
     const browserLanguage = navigator.language.startsWith('ar') ? 'ar' : 'en';
     const initialLanguage = savedLanguage || browserLanguage;
+      if (i18n.language !== initialLanguage) {
     changeLanguage(initialLanguage);
-  }, [changeLanguage]);
+      }
+    }
+  }, [changeLanguage, i18n.language]);
 
   return {
     currentLanguage: i18n.language as 'en' | 'ar',

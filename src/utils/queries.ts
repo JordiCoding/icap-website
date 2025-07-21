@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request';
 
 export const GET_FUND_SLIDER_SECTION = gql`
-  query GetFundSliderSection {
-    fundSliderSections(where: { isVisible: true }) {
+  query GetFundSliderSection($locale: Locale!) {
+    fundSliderSections(locales: [$locale], where: { isVisible: true }) {
       title
       subtitle
       funds(where: { isVisible: true }, orderBy: order_ASC) {
@@ -12,6 +12,9 @@ export const GET_FUND_SLIDER_SECTION = gql`
         riskLevel
         isShariaCompliant
         icon {
+          url
+        }
+        iconEn: icon(locales: en) {
           url
         }
         order

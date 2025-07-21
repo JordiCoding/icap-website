@@ -1,6 +1,6 @@
 export type RiskLevel = 'low' | 'medium' | 'high';
 
-interface IconAsset {
+export interface IconAsset {
   url: string;
 }
 
@@ -11,6 +11,7 @@ export interface FundCardProps {
   riskLevel: RiskLevel;
   isShariaCompliant: boolean;
   icon: IconAsset;
+  iconEn?: IconAsset;
   className?: string;
 }
 

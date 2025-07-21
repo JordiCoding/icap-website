@@ -4,6 +4,7 @@ import 'keen-slider/keen-slider.min.css';
 import { FundCard } from './FundCard';
 import { useFundSlider } from '../../../hooks/useFundSlider';
 import { useTypography } from '../../../hooks/useTypography';
+import { useTranslation } from 'react-i18next';
 
 export function MutualFundSlider() {
   const { getTypographyClasses } = useTypography();
@@ -12,6 +13,7 @@ export function MutualFundSlider() {
   const [loaded, setLoaded] = useState(false);
   const [shouldShowNavigation, setShouldShowNavigation] = useState(true);
   const [maxSlide, setMaxSlide] = useState(0);
+  const { i18n } = useTranslation();
 
   // Calculate slides per view based on screen width
   const getSlidesPerView = () => {
@@ -93,6 +95,15 @@ export function MutualFundSlider() {
     );
   }
 
+  // Defensive check: if no data or no funds, show a message and do not render the slider
+  if (!data || !data.funds || data.funds.length === 0) {
+    return (
+      <div className="max-w-[1062px] mx-auto px-6 py-12 text-center">
+        <p className={`text-red-500 ${getTypographyClasses('body')}`}>{error || 'No mutual funds available.'}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-[1062px] mx-auto px-6">
       {/* Section Title and Subtitle */}
@@ -116,8 +127,8 @@ export function MutualFundSlider() {
       </div>
 
       <div className="py-[12px]">
-        <div ref={sliderRef} className="keen-slider">
-          {data.funds.map((fund) => (
+        <div ref={sliderRef} className="keen-slider" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+          {data.funds.map((fund, idx) => (
             <div 
               key={fund.id} 
               className="keen-slider__slide"
@@ -130,7 +141,7 @@ export function MutualFundSlider() {
                 padding: '12px'
               }}
             >
-              <FundCard {...fund} />
+              <FundCard {...fund} iconEn={fund.iconEn} />
             </div>
           ))}
         </div>
@@ -152,56 +163,117 @@ export function MutualFundSlider() {
             </div>
 
             <div className="flex gap-4">
-              <button
-                onClick={() => instanceRef.current?.prev()}
-                disabled={currentSlide === 0}
-                className={`
-                  w-12 h-12 rounded-full flex items-center justify-center
-                  border border-gray-200 bg-white
-                  hover:bg-gray-50 disabled:opacity-50
-                  transition-all duration-200
-                `}
-                aria-label="Previous slide"
-              >
-                <svg
-                  className="h-6 w-6 rotate-180"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-              <button
-                onClick={() => instanceRef.current?.next()}
-                disabled={currentSlide >= maxSlide}
-                className={`
-                  w-12 h-12 rounded-full flex items-center justify-center
-                  bg-[#C87D55] text-white
-                  hover:bg-[#B66D45] disabled:opacity-50
-                  transition-all duration-200
-                `}
-                aria-label="Next slide"
-              >
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
+              {i18n.language === 'ar' ? (
+                <>
+                  {/* Next (right) arrow for RTL */}
+                  <button
+                    onClick={() => instanceRef.current?.next()}
+                    disabled={currentSlide >= maxSlide}
+                    className={`
+                      w-12 h-12 rounded-full flex items-center justify-center
+                      bg-[#C87D55] text-white
+                      hover:bg-[#B66D45] disabled:opacity-50
+                      transition-all duration-200
+                    `}
+                    aria-label="Next slide"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                  {/* Previous (left) arrow for RTL */}
+                  <button
+                    onClick={() => instanceRef.current?.prev()}
+                    disabled={currentSlide === 0}
+                    className={`
+                      w-12 h-12 rounded-full flex items-center justify-center
+                      border border-gray-200 bg-white
+                      hover:bg-gray-50 disabled:opacity-50
+                      transition-all duration-200
+                    `}
+                    aria-label="Previous slide"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* Previous (left) arrow for LTR */}
+                  <button
+                    onClick={() => instanceRef.current?.prev()}
+                    disabled={currentSlide === 0}
+                    className={`
+                      w-12 h-12 rounded-full flex items-center justify-center
+                      border border-gray-200 bg-white
+                      hover:bg-gray-50 disabled:opacity-50
+                      transition-all duration-200
+                    `}
+                    aria-label="Previous slide"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                  {/* Next (right) arrow for LTR */}
+                  <button
+                    onClick={() => instanceRef.current?.next()}
+                    disabled={currentSlide >= maxSlide}
+                    className={`
+                      w-12 h-12 rounded-full flex items-center justify-center
+                      bg-[#C87D55] text-white
+                      hover:bg-[#B66D45] disabled:opacity-50
+                      transition-all duration-200
+                    `}
+                    aria-label="Next slide"
+                  >
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}

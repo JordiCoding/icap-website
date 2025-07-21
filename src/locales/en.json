@@ -60,7 +60,8 @@
     "cta": "Get Started",
     "login": "Log in",
     "signup": "Sign Up",
-    "startInvesting": "Start Investing"
+    "startInvesting": "Start Investing",
+    "openAccount": "Open Account"
   },
   "portfolio": {
     "preTitle": "Your Portfolio",

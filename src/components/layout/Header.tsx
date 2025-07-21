@@ -41,10 +41,9 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  // Fetch CMS data for CTA buttons
-  const { data: cmsData } = useCmsData();
-  const ctaPrimary = cmsData?.hero?.ctaPrimary || t('home.login');
-  const ctaSecondary = cmsData?.hero?.ctaSecondary || t('home.signup');
+  // Set CTA button labels using translation keys only
+  const ctaPrimary = t('home.openAccount');
+  const ctaSecondary = t('home.login');
 
   const toggleLanguage = () => {
     const newLang = currentLanguage === 'en' ? 'ar' : 'en';
@@ -98,8 +97,8 @@ const Header: React.FC<HeaderProps> = ({ background, position = 'absolute' }) =>
                 {currentLanguage === 'en' ? 'AR' : 'EN'}
               </button>
               {/* CTA Buttons moved from Hero */}
-              <Button variant="secondary" className="px-4 py-2 text-sm">{ctaPrimary}</Button>
-              <Button variant="primary" className="px-4 py-2 text-sm">{ctaSecondary}</Button>
+              <Button variant="secondary" className="px-4 py-2 text-sm">{ctaSecondary}</Button>
+              <Button variant="primary" className="px-4 py-2 text-sm">{ctaPrimary}</Button>
             </div>
 
             {/* Mobile Menu Button */}

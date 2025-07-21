@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import { useTypography } from '../../../hooks/useTypography';
 import type { FundCardProps } from './types';
+import type { IconAsset } from './types';
 
 const RISK_STYLES = {
   low: {
@@ -24,11 +25,15 @@ export function FundCard({
   riskLevel,
   isShariaCompliant,
   icon,
+  iconEn,
   className
 }: FundCardProps) {
   const { t } = useTranslation();
   const { getTypographyClasses } = useTypography();
   const riskStyle = RISK_STYLES[riskLevel];
+
+  // Use icon from current locale, or fallback to English/default icon
+  const iconUrl = icon?.url || iconEn?.url;
 
   return (
     <div 
@@ -56,8 +61,8 @@ export function FundCard({
           aria-hidden="true"
         />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-          {icon?.url ? (
-            <img src={icon.url} alt="" className="w-24 h-24 object-contain" />
+          {iconUrl ? (
+            <img src={iconUrl} alt="" className="w-24 h-24 object-contain" />
           ) : (
             <div className="w-24 h-24 bg-gray-200 rounded-lg" /> // Placeholder
           )}
@@ -66,7 +71,7 @@ export function FundCard({
       {/* Card content below top section */}
       <div className="flex-1 flex flex-col px-8 pb-8 pt-6">
         <h3 className={clsx(
-          "mb-4 text-left font-bold text-gray-900",
+          "mb-4 text-right font-bold text-gray-900",
           getTypographyClasses('title')
         )} style={{ fontSize: 20, lineHeight: '28px' }}>{title}</h3>
         {/* Badges Row */}
@@ -87,13 +92,13 @@ export function FundCard({
               "flex items-center justify-center px-4 rounded-[8px] h-8 text-[12px] font-medium bg-[#FBF7F1] text-black gap-1",
               getTypographyClasses('body')
             )}>
-              Sharia Compliant
+              {t('mutualFunds.shariaCompliant')}
             </span>
           )}
         </div>
         {/* Description */}
         <p className={clsx(
-          "text-left text-gray-600 leading-relaxed",
+          "text-right text-gray-600 leading-relaxed",
           getTypographyClasses('body')
         )} style={{ fontSize: 16, lineHeight: '26px' }}>{description}</p>
       </div>

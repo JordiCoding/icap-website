@@ -117,7 +117,13 @@ const Calculator: React.FC = () => {
             
             {/* Chart section */}
             <div className="h-80">
-              <GrowthChart data={chartData} />
+              {(() => {
+                // Reduce chartData to one entry per year (last entry for each year)
+                const yearlyDataMap = new Map();
+                chartData.forEach(d => yearlyDataMap.set(d.date.slice(0, 4), d));
+                const yearlyData = Array.from(yearlyDataMap.values()).map(d => ({ year: d.date.slice(0, 4), value: d.nav }));
+                return <GrowthChart data={yearlyData} />;
+              })()}
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTypography } from '../../hooks/useTypography';
 import { useMarketStore } from '../../stores/useMarketStore';
@@ -10,7 +10,10 @@ const MarketDataSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
-  const { markets, isLoading, error } = useMarketStore();
+  const { markets, isLoading, error, fetchAllData } = useMarketStore();
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
 
   const containerVariants = {
     hidden: { opacity: 0 },

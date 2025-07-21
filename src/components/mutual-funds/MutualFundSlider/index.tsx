@@ -221,57 +221,57 @@ export function MutualFundSlider() {
               ) : (
                 <>
                   {/* Previous (left) arrow for LTR */}
-                  <button
-                    onClick={() => instanceRef.current?.prev()}
-                    disabled={currentSlide === 0}
-                    className={`
-                      w-12 h-12 rounded-full flex items-center justify-center
-                      border border-gray-200 bg-white
-                      hover:bg-gray-50 disabled:opacity-50
-                      transition-all duration-200
-                    `}
-                    aria-label="Previous slide"
-                  >
-                    <svg
+              <button
+                onClick={() => instanceRef.current?.prev()}
+                disabled={currentSlide === 0}
+                className={`
+                  w-12 h-12 rounded-full flex items-center justify-center
+                  border border-gray-200 bg-white
+                  hover:bg-gray-50 disabled:opacity-50
+                  transition-all duration-200
+                `}
+                aria-label="Previous slide"
+              >
+                <svg
                       className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
                         d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
+                  />
+                </svg>
+              </button>
                   {/* Next (right) arrow for LTR */}
-                  <button
-                    onClick={() => instanceRef.current?.next()}
-                    disabled={currentSlide >= maxSlide}
-                    className={`
-                      w-12 h-12 rounded-full flex items-center justify-center
-                      bg-[#C87D55] text-white
-                      hover:bg-[#B66D45] disabled:opacity-50
-                      transition-all duration-200
-                    `}
-                    aria-label="Next slide"
-                  >
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
+              <button
+                onClick={() => instanceRef.current?.next()}
+                disabled={currentSlide >= maxSlide}
+                className={`
+                  w-12 h-12 rounded-full flex items-center justify-center
+                  bg-[#C87D55] text-white
+                  hover:bg-[#B66D45] disabled:opacity-50
+                  transition-all duration-200
+                `}
+                aria-label="Next slide"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
                 </>
               )}
             </div>

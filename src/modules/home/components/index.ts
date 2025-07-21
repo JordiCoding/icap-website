@@ -1,0 +1,9 @@
+export { default as HeroSection } from './Hero';
+export { default as CtaSection } from './CtaSection';
+export { default as PortfolioSection } from './PortfolioSection';
+export { default as MutualFundsSection } from './MutualFundsSection';
+export { default as GlobalMarketsSection } from './GlobalMarketsSection';
+export { default as MarginLendingNewSection } from './MarginLendingNewSection';
+export { default as WhyAlistithmarSection } from './WhyAlistithmarSection';
+export { default as NewsroomSection } from './NewsroomSection';
+export { default as MarginLendingSection } from './MarginLendingSection'; 

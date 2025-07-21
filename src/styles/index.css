@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+@import '../assets/fonts/fonts.css';
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: "Inter", system-ui, sans-serif;
+  --font-family-arabic: "Noto Sans Arabic", "Inter", system-ui, sans-serif;
+
+  /* Custom ICAP Colors */
+  --color-icap-primary: #0A2D45;
+  --color-icap-secondary: #114972;
+  --color-icap-accent: #A44F17;
+  --color-icap-gold: #EECA60;
+
+  --color-placeholder-bg: #BEBEBE;
+
+  --screens-xs: 475px;
+}
+
+/* Custom base styles */
+html {
+  font-family: var(--font-family-sans);
+}
+
+html[dir="rtl"] {
+  font-family: var(--font-family-arabic);
+}

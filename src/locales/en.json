@@ -60,7 +60,8 @@
     "cta": "Get Started",
     "login": "Log in",
     "signup": "Sign Up",
-    "startInvesting": "Start Investing"
+    "startInvesting": "Start Investing",
+    "openAccount": "Open Account"
   },
   "portfolio": {
     "preTitle": "Your Portfolio",
@@ -136,5 +137,34 @@
   },
   "news": {
     "recommendedArticles": "Recommended Articles"
+  },
+  "brokerage": {
+    "hero": {
+      "title": "Brokerage Services",
+      "subtitle": "Designed for Every Investor",
+      "description": "Access Saudi and global markets with ease. Whether you're a beginner or a seasoned trader, our platform offers the tools, insights, and support you need to invest confidently.",
+      "button": "Open an Account"
+    },
+    "products": {
+      "title": "Trading Opportunities Across Markets",
+      "subtitle": "Whether you're looking to invest in Saudi equities or diversify globally, we provide the tools and access you need to trade with confidence.",
+      "localMarket": {
+        "title": "Local Market",
+        "description": "Access Tadawul-listed equities, sukuk, and IPOs with powerful tools and real-time insights tailored to local investors."
+      },
+      "internationalMarket": {
+        "title": "International Market",
+        "description": "Tap into global exchanges with a single platform. Explore stocks, ETFs, and more across major international markets with ease."
+      },
+      "marginLending": {
+        "title": "Margin Lending",
+        "description": "A diversified mix of Sharia-compliant Sukuk, fixed income, trade finance, money market instruments, and similar funds."
+      }
+    },
+    "tradeYourWay": {
+      "title": "Trade Your Way",
+      "subtitle": "Choose the method that suits you",
+      "description": "A flexible platform that allows you to trade the way you prefer, with advanced tools and comprehensive support."
+    }
   }
 } 
